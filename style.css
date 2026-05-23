@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap');
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+h1 h2 {
+        font-family: 'Archivo Black', sans-serif;
+}
+button a {
+        font-family: 'Space Grotesk', sans-serif;
+}
+span {
+        font-family: 'Geist Mono', monospace;
+}
+
+:root
+{
+        --vert: #c8f03a;
+        --rouge: #ff6b5c;
+        --rose: #ffa3d1;
+        --jaune: #ffd93d;
+        --creme: #fff5d9;
+        --bleu: #8fdfff;
+        --noir: #111111;
+        --blanc: #ffffff;
+        --violet: #7c5cff;
+
+        --fond: #111111;
+        --texte: #e9e9e9;
+        --vert-syntaxe: #c8f03a;
+        --bleu-syntaxe: #8fdfff;
+        --orange-syntaxe: #ffb47a;
+        --rose-syntaxe: #ffa3d1;
+        --gris-dim: #888888;
+
+    /*
+        Bordure : 3px solid #111 (partout)
+        Ombre standard : 6px 6px 0 #111
+        Ombre large (hero, CTA, footer) : 10px 10px 0 #111
+        Ombre petite (boutons header) : 4px 4px 0 #111
+        Rayon de bordure : 18px (grands blocs) / 12px (cartes) / 999px (pills) 
+    */
+
+}
+
+body {
+        background-color: var(--violet);
+        font-family: 'Space Grotesk', sans-serif;
+}
