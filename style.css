@@ -632,6 +632,82 @@ footer {
             font-family: "Geist Mono", monospace;
             text-decoration: none;
             color: var(--blanc);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
     }
+}
+
+.coming-soon {
+    position: relative;
+    opacity: 0.95;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.coming-soon .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    margin-left: 8px;
+    border-radius: 999px;
+    background-color: var(--jaune);
+    color: var(--noir);
+    border: 2px solid var(--noir);
+    font-family: "Geist Mono", monospace;
+    font-size: 0.7em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.left-footer.coming-soon .badge {
+    margin-left: 0;
+    border-radius: 0;
+    border: 3px solid var(--noir);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    height: 100%;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section4-footer.coming-soon {
+    height: auto;
+    width: 80%;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.section4-footer.coming-soon .badge {
+    margin-left: 0;
+    background-color: var(--jaune);
+    color: var(--noir);
+    border: 3px solid var(--noir);
+    border-radius: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.section4-card-right .documentation.coming-soon {
+    justify-content: space-between;
+}
+
+.section4-card-right .documentation.coming-soon .badge {
+    background-color: var(--jaune);
+    color: var(--noir);
+    border: 2px solid var(--noir);
 }
