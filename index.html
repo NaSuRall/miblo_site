@@ -1,133 +1,360 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miblo - CLI</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    <div class="container">
-        <nav>
-            <h1 class="title">Miblo - CLI</h1>
-            <ul class="onglets">
-                <li><a href="./index.html"><i class="fa-brands fa-github"></i> GitHub</a></li>
-                <li><a href="./docs.html" class="doc"><i class="fa-solid fa-book"></i> Documentation</a></li>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Miblo - CLI</title>
+        <link rel="stylesheet" href="./style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <nav>
+                <h1 class="title">Miblo - CLI</h1>
+                <ul class="onglets">
+                    <li>
+                        <a href="./index.html"
+                            ><i class="fa-brands fa-github"></i> GitHub</a
+                        >
+                    </li>
+                    <li>
+                        <a href="./docs.html" class="doc"
+                            ><i class="fa-solid fa-book"></i> Documentation</a
+                        >
+                    </li>
+                </ul>
+            </nav>
 
-            </ul>
-        </nav>
-        <header>
-            <div class="row">
-                <div class="column left" >
-                    <div class="title">
-                        <h1>DU YAML A UNE</h1>
-                        <span class="server">API</span>
-                        <h1>RUST EN </h1>
-                        <span class="etapes">3 ETAPES.</span>
+            <header>
+                <div class="row">
+                    <div class="column left">
+                        <div class="title">
+                            <h1>DU YAML A UNE</h1>
+                            <span class="server">API</span>
+                            <h1>RUST EN</h1>
+                            <span class="etapes">3 ETAPES.</span>
+                        </div>
+                        <div class="left-body">
+                            <p>
+                                Miblo est un outil de développement de serveur
+                                Rust qui permet de générer du code à partir de
+                                fichiers YAML. Il offre une approche simple et
+                                efficace pour créer des serveurs Rust en
+                                utilisant une configuration YAML.
+                            </p>
+                        </div>
+                        <div class="left-footer">
+                            <p>$ cargo install miblo</p>
+                            <a href="">Copier</a>
+                        </div>
                     </div>
-                    <div class="left-body">
-                        <p>
-                            Miblo est un outil de développement de serveur Rust qui permet de générer du code à partir de fichiers YAML.
-                            Il offre une approche simple et efficace pour créer des serveurs Rust en utilisant une configuration YAML.
-                        </p>
-                    </div>
-                    <div class="left-footer">
-                        <p>
-                            $ cargo install miblo
-                        </p>
-                         <a href="">Copier</a>
-                    </div>
-
-                </div>
-                <div class="column right" >
-                    <div class="right-body">
-                        <div class="command">
-                        <p>
-                            $ miblo init -n rust_api -t (template file)
-                            <br>
-                            <span>
-                                $ Voulez-vous générer votre api ici ? (y/n) <br>
-                                    <span style="color: var(--bleu);"> Y </span>
-                                    <br>
-                                Votre api a été générée avec succès !
-                            </span>
-                        </p>
-                        <p>
-                            $ miblo run -n rust_api
-                        </p>
+                    <div class="column right">
+                        <div class="right-body">
+                            <div class="command">
+                                <p>
+                                    $ miblo init -n rust_api -t (template file)
+                                    <br />
+                                    <span>
+                                        $ Voulez-vous générer votre api ici ?
+                                        (y/n) <br />
+                                        <span style="color: var(--bleu)">
+                                            Y
+                                        </span>
+                                        <br />
+                                        Votre api a été générée avec succès !
+                                    </span>
+                                </p>
+                                <p>$ miblo run -n rust_api</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
+            <section>
+                <div class="section-header">
+                    <p>- 3 etapes</p>
+                    <h2>3 commandes. <span>1 API.</span></h2>
+                </div>
+                <div class="section-body">
+                    <div class="card" style="background-color: var(--vert)">
+                        <div class="card-buble">01</div>
+                        <div class="card-header">
+                            <h3>Décrivez en YAML</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Modèles, champs, routes, serveur, base de
+                                données — une seule source de vérité.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <a>config.yaml</a>
+                        </div>
+                    </div>
 
-        <section>
-            <div class="section-header">
-                <p> -  3 etapes</p>
-                <h2>3 commandes. <span>1 API.</span></h2>
-            </div>
-            <div class="section-body">
+                    <div class="card" style="background-color: var(--rose)">
+                        <div class="card-buble">02</div>
+                        <div class="card-header">
+                            <h3>Générez le projet</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Miblo produit un projet Rust standard à partir
+                                de templates Handlebars. Code lisible, prêt à
+                                éditer.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <a>$ miblo init --name mon_api</a>
+                        </div>
+                    </div>
 
-                <div class="card" style="background-color: var(--vert);">
-                    <div class="card-buble">
-                        01
-                    </div>
-                    <div class="card-header">
-                        <h3>Décrivez en YAML</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Modèles, champs, routes, serveur, base de données — une seule source de vérité.</p>
-                    </div>
-                    <div class="card-footer">
-                         <a>config.yaml</a>
+                    <div class="card" style="background-color: var(--jaune)">
+                        <div class="card-buble">03</div>
+                        <div class="card-header">
+                            <h3>Lancez le serveur</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Migrations appliquées, build automatique,
+                                serveur Axum en écoute. Votre API tourne.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <a>$ miblo run --name mon_api</a>
+                        </div>
                     </div>
                 </div>
+                <div class="section-footer"></div>
+            </section>
 
-                <div class="card" style="background-color: var(--rose);">
-                    <div class="card-buble">
-                        02
-                    </div>
-                    <div class="card-header">
-                        <h3>Générez le projet</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Miblo produit un projet Rust standard à partir de templates Handlebars. Code lisible, prêt à éditer.</p>
-                    </div>
-                    <div class="card-footer">
-                         <a>$ miblo init --name mon_api</a>
-                    </div>
+            <section>
+                <div class="section-header">
+                    <p>- ce que miblo génère.</p>
+                    <h2>
+                        Tout le code répétitif <span>écrit pour vous.</span>
+                    </h2>
                 </div>
 
-                <div class="card" style="background-color: var(--jaune);">
-                    <div class="card-buble">
-                        03
+                <div class="section2-body">
+                    <div class="section-right">
+                        <div class="section2-card">
+                            <div class="section-wrap">
+                                <div class="section-ok">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p>Modèles de données</p>
+                            </div>
+
+                            <span>structs Rust typées</span>
+                        </div>
+
+                        <div class="section2-card">
+                            <div class="section-wrap">
+                                <div class="section-ok">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p>Intégration SQLx</p>
+                            </div>
+
+                            <span>accès type-safe</span>
+                        </div>
+
+                        <div class="section2-card">
+                            <div class="section-wrap">
+                                <div class="section-ok">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p>Serveur Axum</p>
+                            </div>
+
+                            <span>port et adresse configurés</span>
+                        </div>
                     </div>
-                    <div class="card-header">
-                        <h3>Lancez le serveur</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Migrations appliquées, build automatique, serveur Axum en écoute. Votre API tourne.</p>
-                    </div>
-                    <div class="card-footer">
-                         <a>$ miblo run --name mon_api</a>
+                    <div class="section-left">
+                        <div class="section2-card">
+                            <div class="section-wrap">
+                                <div class="section-ok">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p>Migrations SQL</p>
+                            </div>
+
+                            <span>schéma prêt à l’emploi</span>
+                        </div>
+
+                        <div class="section2-card">
+                            <div class="section-wrap">
+                                <div class="section-ok">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p>Routes & handlers</p>
+                            </div>
+
+                            <span>CRUD complet</span>
+                        </div>
+
+                        <div class="section2-card">
+                            <div class="section-wrap">
+                                <div class="section-ok">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p>Authentification</p>
+                            </div>
+
+                            <span>une option, c’est tout</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-            <div class="section-footer"></div>
-        </section>
+            <section>
+                <div class="section-header">
+                    <p>- Pourquoi Miblo-cli ?</p>
+                    <h2>Du Rust standard. <span>Rien de plus.</span></h2>
+                </div>
 
-        <section>
-            <div class="section-header">
-                <p> - ce que miblo génère.</p>
-                <h2>Tout le code répétitif <span>écrit pour vous.</span></h2>
-            </div>
-        </section>
+                <div class="section3-body">
+                    <div
+                        class="section3-card"
+                        style="background-color: var(--vert)"
+                    >
+                        <div class="section3-card-header">
+                            <span>01 / VITESSE</span>
+                        </div>
+                        <div class="section3-card-body">
+                            <h3>Rapide</h3>
+                            <p>
+                                D'une idée à une API fonctionnelle en quelques
+                                secondes.
+                            </p>
+                        </div>
+                    </div>
 
+                    <div
+                        class="section3-card"
+                        style="background-color: var(--rose)"
+                    >
+                        <div class="section3-card-header">
+                            <span>02 / RUST NATIF</span>
+                        </div>
+                        <div class="section3-card-body">
+                            <h3>Performant & sûr</h3>
+                            <p>
+                                Performances, sécurité mémoire et fiabilité dès
+                                le départ.
+                            </p>
+                        </div>
+                    </div>
 
+                    <div
+                        class="section3-card"
+                        style="background-color: var(--jaune)"
+                    >
+                        <div class="section3-card-header">
+                            <span>03 / CONFIG</span>
+                        </div>
+                        <div class="section3-card-body">
+                            <h3>Piloté par YAML</h3>
+                            <p>
+                                Une seule source de vérité. Vous éditez le
+                                fichier, Miblo s'occupe du reste.
+                            </p>
+                        </div>
+                    </div>
 
-    </div>
-</body>
+                    <div
+                        class="section3-card"
+                        style="background-color: var(--bleu)"
+                    >
+                        <div class="section3-card-header">
+                            <span>04 / DÉTERMINISTE</span>
+                        </div>
+                        <div class="section3-card-body">
+                            <h3>Reproductible</h3>
+                            <p>
+                                La même configuration produit toujours le même
+                                projet. Versionnable.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="section3-card"
+                        style="background-color: var(--blanc)"
+                    >
+                        <div class="section3-card-header">
+                            <span>05 / STACK</span>
+                        </div>
+                        <div class="section3-card-body">
+                            <h3>Axum + SQLx</h3>
+                            <p>
+                                Pas de framework propriétaire. Du Rust standard,
+                                que vous gardez.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="section3-card"
+                        style="background-color: var(--vert)"
+                    >
+                        <div class="section3-card-header">
+                            <span>06 / SANS RUNTIME</span>
+                        </div>
+                        <div class="section3-card-body">
+                            <h3>Pas de surcharge</h3>
+                            <p>
+                                Miblo génère, puis disparaît. Aucune dépendance
+                                vers Miblo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="section4-body">
+                    <div class="section4-card">
+                        <div class="section4-card-left">
+                            <h2>Prêt en une commande.</h2>
+                            <p>
+                                Installez Miblo, écrivez un YAML, lancez votre
+                                API. C'est tout.
+                            </p>
+                        </div>
+                        <div class="section4-card-right">
+                            <div class="section4-footer">
+                                <p>$ cargo install miblo</p>
+                                <span href="">Copier</span>
+                            </div>
+
+                            <div class="documentation">
+                                <a href="#"> Documentation </a>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="footer-left">
+                    <p>© 2026 MIBLO · MIT</p>
+                </div>
+                <div class="footer-right">
+                    <a href="#">Github</a>
+                    <a href="#">Docs</a>
+                    <a href="#">Crate.io</a>
+                </div>
+            </footer>
+        </div>
+    </body>
 </html>
