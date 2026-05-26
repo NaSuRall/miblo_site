@@ -6,10 +6,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-h1 h2 {
+h1, h2 {
     font-family: "Archivo Black", sans-serif;
 }
-button a {
+button, a {
     font-family: "Space Grotesk", sans-serif;
 }
 span {
@@ -78,7 +78,6 @@ nav {
         & a {
             font-size: 1em;
             color: var(--noir);
-            text-decoration: underline;
             text-decoration: none;
             padding: 5px 20px;
             border: 3px solid var(--noir);
@@ -141,14 +140,14 @@ header {
     }
     .title h1 {
         font-family: "Archivo Black", sans-serif;
-        font-style: bold;
+        font-weight: bold;
         font-size: 3.5em;
         color: var(--noir);
     }
     .server {
         display: flex;
         font-family: "Archivo Black", sans-serif;
-        font-style: bold;
+        font-weight: bold;
         font-size: 3.5em;
         color: var(--noir);
         background-color: var(--vert);
@@ -164,7 +163,7 @@ header {
     .etapes {
         display: flex;
         font-family: "Archivo Black", sans-serif;
-        font-style: bold;
+        font-weight: bold;
         font-size: 3.5em;
         color: var(--noir);
         background-color: var(--jaune);
@@ -180,7 +179,7 @@ header {
         color: var(--noir);
         line-height: 1.5;
         font-family: "Space Grotesk", sans-serif;
-        font-style: bold;
+        font-weight: bold;
     }
     .left-footer {
         display: flex;
@@ -196,7 +195,7 @@ header {
             font-size: 1em;
             color: var(--noir);
             font-family: "Space Grotesk", sans-serif;
-            font-style: bold;
+            font-weight: bold;
             padding: 10px;
             width: 80%;
             background-color: var(--blanc);
@@ -225,7 +224,7 @@ header {
             }
         }
     }
-    & :hover {
+    &:hover {
         box-shadow: 0 0 0 #111;
     }
 
@@ -300,7 +299,7 @@ section {
             & span {
                 color: var(--noir);
                 font-family: "Archivo Black", sans-serif;
-                font-style: bold;
+                font-weight: bold;
                 border-bottom: 10px solid var(--vert);
             }
         }
@@ -416,7 +415,7 @@ section {
             background-color: var(--blanc);
             overflow: hidden;
             box-shadow: 6px 6px var(--noir);
-            transition: 2s all ease-in-out;
+            transition: all 0.2s ease-in-out;
 
             & .section-wrap {
                 display: flex;
@@ -543,7 +542,7 @@ section {
                         font-size: 1em;
                         color: var(--noir);
                         font-family: "Space Grotesk", sans-serif;
-                        font-style: bold;
+                        font-weight: bold;
                         padding: 10px;
                         width: 80%;
                         background-color: var(--blanc);
