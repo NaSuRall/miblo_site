@@ -63,6 +63,10 @@ nav {
     padding: 30px 20px;
     width: 100%;
 
+    img {
+        width: 200px;
+        height: auto;
+    }
     & .title {
         font-size: 2em;
         color: var(--creme);
@@ -76,6 +80,9 @@ nav {
         list-style: none;
 
         & a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 1em;
             color: var(--noir);
             text-decoration: none;
@@ -230,7 +237,7 @@ header {
 
     .right {
         display: flex;
-        align-content: center;
+        align-items: center;
         justify-content: center;
         width: 55%;
         border-radius: 20px;
@@ -242,7 +249,7 @@ header {
             transform: translateX(40px);
             background-color: var(--vert);
             border: 3px solid var(--noir);
-            border-radius: 20px;
+            border-radius: 30px;
             box-shadow: 10px 10px 0 #111;
             padding: 20px;
         }
@@ -282,9 +289,10 @@ section {
         gap: 10px;
 
         & p {
-            display: flex;
+            display: inline-flex;
+            align-items: center;
             background-color: var(--noir);
-            width: 20%;
+            width: fit-content;
             font-size: 0.8em;
             justify-content: center;
             color: var(--blanc);
@@ -360,14 +368,21 @@ section {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                width: 100%;
 
                 & a {
+                    display: inline-block;
+                    max-width: 100%;
                     border: 3px solid var(--noir);
                     border-radius: 10px;
                     padding: 5px 10px;
                     background-color: var(--noir);
                     color: var(--blanc);
+                    font-family: "Geist Mono", monospace;
                     font-size: 0.8em;
+                    text-align: center;
+                    word-break: break-word;
+                    cursor: default;
                 }
             }
         }
@@ -465,11 +480,12 @@ section {
             padding: 20px;
 
             & .section3-card-header {
-                display: flex;
+                display: inline-flex;
+                align-items: center;
                 padding: 5px 15px;
                 background-color: var(--blanc);
                 border: 3px solid var(--noir);
-                width: 100%;
+                width: fit-content;
                 border-radius: 30px;
                 font-size: 0.8em;
             }
@@ -663,6 +679,11 @@ footer {
     line-height: 1.4;
 }
 
+.left-footer.coming-soon p {
+    flex: 1;
+    width: auto;
+}
+
 .left-footer.coming-soon .badge {
     margin-left: 0;
     border-radius: 0;
@@ -676,6 +697,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .section4-footer.coming-soon {
@@ -683,6 +705,11 @@ footer {
     width: 80%;
     align-items: stretch;
     justify-content: space-between;
+}
+
+.section4-footer.coming-soon p {
+    flex: 1;
+    width: auto;
 }
 
 .section4-footer.coming-soon .badge {
@@ -700,6 +727,7 @@ footer {
     align-items: center;
     justify-content: center;
     box-shadow: none;
+    flex-shrink: 0;
 }
 
 .section4-card-right .documentation.coming-soon {
@@ -710,4 +738,414 @@ footer {
     background-color: var(--jaune);
     color: var(--noir);
     border: 2px solid var(--noir);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Écran large 1920x1080 (desktop bureau) */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1280px;
+    }
+
+    nav img {
+        width: 170px;
+    }
+
+    nav .onglets a {
+        font-size: 0.95em;
+    }
+
+    header {
+        height: 72vh;
+        max-height: 740px;
+        margin-top: 30px;
+    }
+
+    header .column {
+        padding: 40px;
+    }
+
+    header .left {
+        justify-content: flex-start;
+        gap: 28px;
+    }
+
+    header .right {
+        position: relative;
+        padding: 30px 40px;
+    }
+
+    header .right .right-body {
+        position: relative;
+        width: 100%;
+        height: 95%;
+        transform: translateX(80px);
+    }
+
+    header .title h1,
+    header .server,
+    header .etapes {
+        font-size: 3em;
+    }
+
+    header .left-body p {
+        font-size: 1.05em;
+    }
+
+    header .right .right-body {
+        width: 100%;
+        height: 100%;
+    }
+
+    header .right .command {
+        font-size: 0.95em;
+        gap: 16px;
+    }
+
+    section {
+        margin: 50px 0;
+    }
+
+    section .section-header h2 {
+        font-size: 2.2em;
+    }
+
+    section .section-body {
+        margin-top: 25px;
+        gap: 25px;
+    }
+
+    section .section-body .card {
+        height: 220px;
+        padding: 12px;
+    }
+
+    section .section-body .card .card-header {
+        font-size: 1.1em;
+    }
+
+    section .section-body .card .card-body p {
+        font-size: 0.95em;
+        line-height: 1.4;
+    }
+
+    section .section-body .card .card-footer a {
+        font-size: 0.85em;
+    }
+
+    section .section2-body {
+        margin-top: 25px;
+    }
+
+    section .section2-body .section2-card {
+        height: 72px;
+    }
+
+    section .section2-body .section2-card p {
+        font-size: 1.05em;
+    }
+
+    section .section2-body .section2-card span {
+        font-size: 0.85em;
+    }
+
+    section .section3-body {
+        margin-top: 30px;
+        gap: 22px;
+    }
+
+    section .section3-body .section3-card {
+        width: calc(33.333% - 16px);
+        max-width: 100%;
+        height: 190px;
+    }
+
+    section .section3-body .section3-card .section3-card-body h3 {
+        font-size: 1.4em;
+    }
+
+    section .section3-body .section3-card .section3-card-body p {
+        font-size: 0.9em;
+    }
+
+    section .section4-body .section4-card {
+        height: 180px;
+    }
+
+    section .section4-body .section4-card .section4-card-left h2 {
+        font-size: 2.2em;
+    }
+}
+
+/* Tablette ≤ 1024px */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 92%;
+    }
+
+    nav {
+        padding: 25px 10px;
+    }
+
+    header {
+        height: auto;
+    }
+
+    header .row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header .column {
+        padding: 30px;
+    }
+
+    header .left,
+    header .right {
+        width: 100%;
+    }
+
+    header .right {
+        height: 420px;
+    }
+
+    header .right .right-body {
+        position: relative;
+        width: 80%;
+        height: 100%;
+        transform: none;
+        margin: 0 auto;
+    }
+
+    header .title h1,
+    header .server,
+    header .etapes {
+        font-size: 2.6em;
+    }
+
+    section .section-body {
+        flex-direction: column;
+    }
+
+    section .section-body .card {
+        height: auto;
+        min-height: 220px;
+    }
+
+    section .section-header > p {
+        width: auto;
+        min-width: 180px;
+        align-self: flex-start;
+    }
+
+    section .section3-body .section3-card {
+        width: calc(50% - 10px);
+    }
+}
+
+/* Mobile ≤ 768px */
+@media (max-width: 768px) {
+    body {
+        padding: 5px 10px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 0;
+    }
+
+    nav .title {
+        font-size: 1.6em;
+    }
+
+    nav .onglets {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        padding: 0;
+        align-items: stretch;
+    }
+
+    nav .onglets li {
+        width: 100%;
+    }
+
+    nav .onglets a {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+    header {
+        box-shadow: 6px 6px 0 #111;
+    }
+
+    header .column {
+        padding: 25px 20px;
+    }
+
+    header .left {
+        gap: 25px;
+    }
+
+    header .title h1,
+    header .server,
+    header .etapes {
+        font-size: 1.9em;
+    }
+
+    header .left-footer {
+        width: 100%;
+        box-shadow: 6px 6px 0 #111;
+    }
+
+    header .left-footer p {
+        font-size: 0.9em;
+    }
+
+    header .right {
+        height: 320px;
+        padding: 20px;
+    }
+
+    header .right .right-body {
+        width: 90%;
+        height: 100%;
+        box-shadow: 6px 6px 0 #111;
+        padding: 15px;
+    }
+
+    header .right .command {
+        gap: 10px;
+        font-size: 0.85em;
+        padding: 15px;
+    }
+
+    section {
+        margin: 40px 0;
+    }
+
+    section .section-header h2 {
+        font-size: 1.9em;
+    }
+
+    section .section-header h2 span {
+        border-bottom-width: 6px;
+    }
+
+    section .section-header > p {
+        width: auto;
+        min-width: 160px;
+        align-self: flex-start;
+    }
+
+    section .section-body {
+        gap: 20px;
+    }
+
+    section .section2-body {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    section .section2-body .section-right,
+    section .section2-body .section-left {
+        width: 100%;
+    }
+
+    section .section2-body .section2-card {
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    section .section3-body {
+        padding: 0;
+    }
+
+    section .section3-body .section3-card {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 180px;
+    }
+
+    section .section4-body .section4-card {
+        flex-direction: column;
+        height: auto;
+        padding: 25px 20px;
+        gap: 25px;
+    }
+
+    section .section4-body .section4-card .section4-card-left,
+    section .section4-body .section4-card .section4-card-right {
+        width: 100%;
+    }
+
+    section .section4-body .section4-card .section4-card-left h2 {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    .section4-footer.coming-soon {
+        width: 100%;
+    }
+
+    .section4-card-right .documentation {
+        width: 100%;
+        padding: 15px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 16px;
+        height: auto;
+        padding: 25px 0;
+        text-align: center;
+    }
+
+    footer .footer-right {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Très petit écran ≤ 480px */
+@media (max-width: 480px) {
+    header .title h1,
+    header .server,
+    header .etapes {
+        font-size: 1.5em;
+    }
+
+    header .right {
+        height: 280px;
+    }
+
+    header .right .right-body {
+        width: 100%;
+        transform: none;
+    }
+
+    header .right .command {
+        font-size: 0.75em;
+    }
+
+    section .section-header h2 {
+        font-size: 1.5em;
+    }
+
+    nav .title {
+        font-size: 1.4em;
+    }
 }
