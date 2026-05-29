@@ -3,7 +3,88 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Miblo - CLI</title>
+
+        <title>Miblo CLI — Générer une API CRUD Rust depuis un YAML en 3 étapes</title>
+        <meta
+            name="description"
+            content="Miblo est un CLI open source qui génère une API CRUD Rust complète (Axum + SQLx, migrations SQL, JWT) à partir d'un simple fichier template YAML. Du YAML au serveur en 3 commandes."
+        />
+        <meta
+            name="keywords"
+            content="Miblo, Miblo CLI, Rust, API CRUD Rust, générateur API Rust, YAML, Axum, SQLx, code generation, CLI Rust, template Rust, scaffolding Rust, JWT Rust, open source"
+        />
+        <meta name="author" content="NaSuRall" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="language" content="French" />
+        <meta name="theme-color" content="#7c5cff" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="format-detection" content="telephone=no" />
+
+        <link rel="canonical" href="https://miblo.fr/" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Miblo CLI" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:url" content="https://miblo.fr/" />
+        <meta
+            property="og:title"
+            content="Miblo CLI — Générer une API CRUD Rust depuis un YAML en 3 étapes"
+        />
+        <meta
+            property="og:description"
+            content="Du YAML au serveur Rust en 3 commandes. Miblo génère modèles, migrations SQL, routes Axum, accès SQLx et auth JWT. Open source."
+        />
+        <meta
+            property="og:image"
+            content="https://miblo.fr/Miblo-cli-logo-blanc.png"
+        />
+        <meta
+            property="og:image:alt"
+            content="Logo Miblo CLI — générateur d'API CRUD Rust depuis YAML"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://miblo.fr/" />
+        <meta
+            name="twitter:title"
+            content="Miblo CLI — Générer une API CRUD Rust depuis un YAML en 3 étapes"
+        />
+        <meta
+            name="twitter:description"
+            content="Du YAML au serveur Rust en 3 commandes. Modèles, migrations SQL, routes Axum, SQLx, JWT. Open source."
+        />
+        <meta
+            name="twitter:image"
+            content="https://miblo.fr/Miblo-cli-logo-blanc.png"
+        />
+        <meta
+            name="twitter:image:alt"
+            content="Logo Miblo CLI — générateur d'API CRUD Rust depuis YAML"
+        />
+
+        <link
+            rel="icon"
+            type="image/png"
+            href="./Miblo-cli-logo-blanc.png"
+        />
+        <link rel="apple-touch-icon" href="./Miblo-cli-logo-blanc.png" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+        />
+        <link
+            rel="preconnect"
+            href="https://cdnjs.cloudflare.com"
+            crossorigin
+        />
+        <link rel="dns-prefetch" href="https://github.com" />
+
         <link rel="stylesheet" href="./style.css" />
         <link
             rel="stylesheet"
@@ -12,33 +93,120 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Miblo CLI",
+                "alternateName": "Miblo",
+                "description": "CLI open source qui génère une API CRUD Rust complète (Axum + SQLx, migrations SQL, JWT) à partir d'un fichier template YAML.",
+                "applicationCategory": "DeveloperApplication",
+                "applicationSubCategory": "CodeGenerator",
+                "operatingSystem": "Linux, macOS, Windows",
+                "url": "https://miblo.fr/",
+                "image": "https://miblo.fr/Miblo-cli-logo-blanc.png",
+                "license": "https://opensource.org/licenses/MIT",
+                "programmingLanguage": "Rust",
+                "codeRepository": "https://github.com/NaSuRall/Miblo",
+                "inLanguage": "fr",
+                "author": {
+                    "@type": "Person",
+                    "name": "NaSuRall",
+                    "url": "https://github.com/NaSuRall"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "EUR"
+                }
+            }
+        </script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Miblo CLI",
+                "url": "https://miblo.fr/",
+                "inLanguage": "fr-FR",
+                "publisher": {
+                    "@type": "Person",
+                    "name": "NaSuRall",
+                    "url": "https://github.com/NaSuRall"
+                }
+            }
+        </script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                "name": "Générer une API CRUD Rust en 3 étapes avec Miblo",
+                "description": "Passez d'un fichier YAML à une API CRUD Rust fonctionnelle (Axum + SQLx) en 3 commandes.",
+                "inLanguage": "fr",
+                "step": [
+                    {
+                        "@type": "HowToStep",
+                        "position": 1,
+                        "name": "Template YAML",
+                        "text": "Récupérez le fichier template YAML qui contient tous les templates nécessaires à la construction de votre API."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 2,
+                        "name": "Générer le projet",
+                        "text": "Miblo produit un projet Rust standard à partir de templates Handlebars. Code lisible, prêt à éditer."
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "position": 3,
+                        "name": "Lancer le serveur",
+                        "text": "Migrations appliquées, build automatique, serveur Axum en écoute. Votre API tourne."
+                    }
+                ]
+            }
+        </script>
     </head>
     <body>
         <div class="container">
-            <nav>
-                <img src="./Miblo-cli-logo-blanc.png" alt="Miblo Logo" class="logo" />
+            <nav aria-label="Navigation principale">
+                <a href="/" aria-label="Accueil Miblo CLI">
+                    <img
+                        src="./Miblo-cli-logo-blanc.png"
+                        alt="Logo Miblo CLI — générateur d'API CRUD Rust depuis YAML"
+                        class="logo"
+                        width="200"
+                        loading="eager"
+                        decoding="async"
+                    />
+                </a>
                 <ul class="onglets">
                     <li>
                         <a
                             href="https://github.com/NaSuRall/Miblo"
                             target="_blank"
                             rel="noopener noreferrer"
-                            ><i class="fa-brands fa-github"></i> GitHub</a
+                            title="Voir Miblo CLI sur GitHub"
+                            aria-label="Voir le dépôt Miblo CLI sur GitHub (ouvre un nouvel onglet)"
+                            ><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a
                         >
                     </li>
                     <li>
-                        <a href="#" class="doc coming-soon"
-                            ><i class="fa-solid fa-book"></i> Documentation
+                        <a
+                            href="#"
+                            class="doc coming-soon"
+                            aria-disabled="true"
+                            title="Documentation à venir"
+                            ><i class="fa-solid fa-book" aria-hidden="true"></i> Documentation
                             <span class="badge">Bientôt disponible</span></a
                         >
                     </li>
                 </ul>
             </nav>
 
-            <header>
+            <header aria-label="Présentation de Miblo CLI">
                 <div class="row">
                     <div class="column left">
-                        <div class="title">
+                        <div class="title" aria-label="Du YAML à une API CRUD Rust en 3 étapes">
                             <h1>DU YAML À UNE</h1>
                             <span class="server">API CRUD</span>
                             <h1>RUST EN</h1>
@@ -58,7 +226,7 @@
                         </div>
                     </div>
                     <div class="column right">
-                        <div class="right-body">
+                        <div class="right-body" role="img" aria-label="Démonstration du terminal Miblo CLI : initialisation puis lancement d'une API Rust">
                             <div class="command">
                                 <p>
                                     $ miblo init -n rust_api -t (template file)
@@ -82,14 +250,14 @@
                 </div>
             </header>
 
-            <section>
+            <section aria-labelledby="etapes-titre">
                 <div class="section-header">
                     <p>- 3 étapes</p>
-                    <h2>3 commandes. <span>1 API.</span></h2>
+                    <h2 id="etapes-titre">3 commandes. <span>1 API.</span></h2>
                 </div>
                 <div class="section-body">
-                    <div class="card" style="background-color: var(--vert)">
-                        <div class="card-buble">01</div>
+                    <div class="card" style="background-color: var(--vert)" role="group" aria-label="Étape 1 : Template YAML">
+                        <div class="card-buble" aria-hidden="true">01</div>
                         <div class="card-header">
                             <h3>Template YAML</h3>
                         </div>
@@ -106,8 +274,8 @@
                         </div>
                     </div>
 
-                    <div class="card" style="background-color: var(--rose)">
-                        <div class="card-buble">02</div>
+                    <div class="card" style="background-color: var(--rose)" role="group" aria-label="Étape 2 : Générer le projet">
+                        <div class="card-buble" aria-hidden="true">02</div>
                         <div class="card-header">
                             <h3>Générez le projet</h3>
                         </div>
@@ -123,8 +291,8 @@
                         </div>
                     </div>
 
-                    <div class="card" style="background-color: var(--jaune)">
-                        <div class="card-buble">03</div>
+                    <div class="card" style="background-color: var(--jaune)" role="group" aria-label="Étape 3 : Lancer le serveur">
+                        <div class="card-buble" aria-hidden="true">03</div>
                         <div class="card-header">
                             <h3>Lancez le serveur</h3>
                         </div>
@@ -142,10 +310,10 @@
                 <div class="section-footer"></div>
             </section>
 
-            <section>
+            <section aria-labelledby="genere-titre">
                 <div class="section-header">
                     <p>- Ce que Miblo génère.</p>
-                    <h2>
+                    <h2 id="genere-titre">
                         Tout le code répétitif <span>écrit pour vous.</span>
                     </h2>
                 </div>
@@ -154,8 +322,8 @@
                     <div class="section-right">
                         <div class="section2-card">
                             <div class="section-wrap">
-                                <div class="section-ok">
-                                    <i class="fa-solid fa-check"></i>
+                                <div class="section-ok" aria-hidden="true">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
                                 </div>
                                 <p>Modèles de données</p>
                             </div>
@@ -165,8 +333,8 @@
 
                         <div class="section2-card">
                             <div class="section-wrap">
-                                <div class="section-ok">
-                                    <i class="fa-solid fa-check"></i>
+                                <div class="section-ok" aria-hidden="true">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
                                 </div>
                                 <p>Intégration SQLx</p>
                             </div>
@@ -176,8 +344,8 @@
 
                         <div class="section2-card">
                             <div class="section-wrap">
-                                <div class="section-ok">
-                                    <i class="fa-solid fa-check"></i>
+                                <div class="section-ok" aria-hidden="true">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
                                 </div>
                                 <p>Serveur Axum</p>
                             </div>
@@ -188,8 +356,8 @@
                     <div class="section-left">
                         <div class="section2-card">
                             <div class="section-wrap">
-                                <div class="section-ok">
-                                    <i class="fa-solid fa-check"></i>
+                                <div class="section-ok" aria-hidden="true">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
                                 </div>
                                 <p>Migrations SQL</p>
                             </div>
@@ -199,8 +367,8 @@
 
                         <div class="section2-card">
                             <div class="section-wrap">
-                                <div class="section-ok">
-                                    <i class="fa-solid fa-check"></i>
+                                <div class="section-ok" aria-hidden="true">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
                                 </div>
                                 <p>Routes & handlers</p>
                             </div>
@@ -210,8 +378,8 @@
 
                         <div class="section2-card">
                             <div class="section-wrap">
-                                <div class="section-ok">
-                                    <i class="fa-solid fa-check"></i>
+                                <div class="section-ok" aria-hidden="true">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
                                 </div>
                                 <p>Authentification</p>
                             </div>
@@ -222,10 +390,10 @@
                 </div>
             </section>
 
-            <section>
+            <section aria-labelledby="pourquoi-titre">
                 <div class="section-header">
                     <p>- Pourquoi Miblo-cli ?</p>
-                    <h2>Du Rust standard. <span>Rien de plus.</span></h2>
+                    <h2 id="pourquoi-titre">Du Rust standard. <span>Rien de plus.</span></h2>
                 </div>
 
                 <div class="section3-body">
@@ -327,24 +495,24 @@
                 </div>
             </section>
 
-            <section>
+            <section aria-labelledby="cta-titre">
                 <div class="section4-body">
                     <div class="section4-card">
                         <div class="section4-card-left">
-                            <h2>Prêt en une commande.</h2>
+                            <h2 id="cta-titre">Prêt en une commande.</h2>
                             <p>
                                 Installez Miblo, écrivez un YAML, lancez votre
                                 API. C'est tout.
                             </p>
                         </div>
                         <div class="section4-card-right">
-                            <div class="section4-footer coming-soon">
+                            <div class="section4-footer coming-soon" aria-label="Commande d'installation à venir">
                                 <p>$ cargo add miblo</p>
                                 <span class="badge">Bientôt disponible</span>
                             </div>
 
                             <div class="documentation coming-soon">
-                                <a href="#"> Documentation </a>
+                                <a href="#" aria-disabled="true" title="Documentation à venir"> Documentation </a>
                                 <span class="badge">Bientôt disponible</span>
                             </div>
                         </div>
@@ -352,21 +520,23 @@
                 </div>
             </section>
 
-            <footer>
+            <footer aria-label="Pied de page">
                 <div class="footer-left">
-                    <p>© 2026 MIBLO · MIT</p>
+                    <p><small>© 2026 MIBLO · Licence MIT</small></p>
                 </div>
                 <div class="footer-right">
                     <a
                         href="https://github.com/NaSuRall/Miblo"
                         target="_blank"
                         rel="noopener noreferrer"
+                        title="Miblo CLI sur GitHub"
+                        aria-label="Dépôt Miblo CLI sur GitHub (ouvre un nouvel onglet)"
                         >Github</a
                     >
-                    <a href="#" class="coming-soon"
+                    <a href="#" class="coming-soon" aria-disabled="true" title="Documentation à venir"
                         >Docs <span class="badge">Bientôt disponible</span></a
                     >
-                    <a href="#" class="coming-soon"
+                    <a href="#" class="coming-soon" aria-disabled="true" title="Page Crates.io à venir"
                         >Crates.io <span class="badge">Bientôt disponible</span></a
                     >
                 </div>
