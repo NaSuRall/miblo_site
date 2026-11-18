@@ -2311,3 +2311,19 @@ td code {
     overflow:visible;
   }
 }
+
+/* Keep both languages available on every screen, including compact headers. */
+.language-switch { display:flex; align-items:center; gap:2px; flex-shrink:0; }
+.language-switch a { padding:6px 7px; color:var(--muted); font-size:12px; line-height:1.2; border:1px solid transparent; }
+.language-switch a[aria-current="page"] { color:#4696ff; border-color:var(--line); background:#4696ff0c; }
+.language-switch a:hover { color:var(--fg); }
+.language-switch a:focus-visible { outline:2px solid #4696ff; outline-offset:2px; }
+@media(max-width:900px) { .header-inner { gap:24px; } .header-actions { gap:14px; } }
+@media(max-width:640px) {
+  .site-header .brand-logo { width:84px; }
+  .header-inner { gap:12px; padding-inline:16px; }
+  .header-actions { gap:10px; }
+  .main-nav { gap:0; }
+  .main-nav a { font-size:10px; }
+  .language-switch a { padding:6px 5px; font-size:11px; }
+}

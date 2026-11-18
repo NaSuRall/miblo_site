@@ -2,6 +2,17 @@
   'use strict';
   const script = document.currentScript;
   const root = new URL('.', script.src);
+  const en = document.documentElement.lang === 'en';
+  const t = (fr, english) => en ? english : fr;
+  function updateLanguageLinks() { document.querySelectorAll('[data-language]').forEach(link => {
+    const target = new URL(link.href);
+    target.hash = window.location.hash;
+    const chapter = new URLSearchParams(window.location.search).get('demo');
+    if (chapter) target.searchParams.set('demo', chapter);
+    link.href = target.href;
+  }); }
+  updateLanguageLinks();
+  window.addEventListener('hashchange', updateLanguageLinks);
   const toast = document.querySelector('.toast');
   let toastTimer;
   function announce(message) {
@@ -33,22 +44,22 @@
         button.focus();
       }
       if (copied) {
-        button.textContent = 'Copié ✓';
-        announce('Commande copiée.');
-        setTimeout(() => { button.textContent = 'Copier'; }, 2000);
+        button.textContent = t('Copié ✓', 'Copied ✓');
+        announce(t('Commande copiée.', 'Command copied.'));
+        setTimeout(() => { button.textContent = t('Copier', 'Copy'); }, 2000);
       } else {
         const selection = window.getSelection();
         const range = document.createRange();
         range.selectNodeContents(block);
         selection.removeAllRanges();
         selection.addRange(range);
-        announce('Copie indisponible. Le texte est sélectionné : utilisez Ctrl/Cmd + C.');
+        announce(t('Copie indisponible. Le texte est sélectionné : utilisez Ctrl/Cmd + C.', 'Copy unavailable. The text is selected: use Ctrl/Cmd + C.'));
       }
     });
   });
   document.querySelectorAll('.code-block pre, .code-diff').forEach(pre => {
     pre.tabIndex = 0;
-    pre.setAttribute('aria-label', 'Exemple de code, défilement horizontal possible');
+    pre.setAttribute('aria-label', t('Exemple de code, défilement horizontal possible', 'Code example; horizontal scrolling available'));
   });
 
 
@@ -82,7 +93,7 @@
   let revision = 0;
   function loadIndex() {
     if (!indexPromise) {
-      indexPromise = fetch(new URL('search-index.json', root))
+      indexPromise = fetch(new URL(document.body.dataset.searchIndex, document.baseURI))
         .then(response => {
           if (!response.ok) throw new Error('Search index unavailable');
           return response.json();
@@ -93,7 +104,7 @@
   }
   async function search() {
     const ownRevision = ++revision;
-    status.textContent = 'Chargement de la documentation…';
+    status.textContent = t('Chargement de la documentation…', 'Loading documentation…');
     try {
       const items = await loadIndex();
       if (ownRevision !== revision) return;
@@ -107,7 +118,7 @@
           ? terms.reduce((sum, term) => sum + (title.includes(term) ? 8 : 0) + (section.includes(term) ? 5 : 0) + (text.includes(term) ? 1 : 0), 0)
           : -1;
         return {item, score};
-      }).filter(({item, score}) => terms.length ? score >= 0 : item.section === 'Vue d’ensemble')
+      }).filter(({item, score}) => terms.length ? score >= 0 : item.overview === true)
         .sort((a, b) => b.score - a.score);
       results.replaceChildren();
       matches.slice(0, 8).forEach(({item}) => {
@@ -125,17 +136,17 @@
         link.append(label, title, excerpt);
         results.append(link);
       });
-      status.textContent = !terms.length ? 'Parcourir la documentation'
-        : matches.length ? matches.length + ' résultat' + (matches.length > 1 ? 's' : '') + (matches.length > 8 ? ' · 8 affichés' : '')
-          : 'Aucun résultat. Essayez « modèle », « SQLite » ou « migration ».';
+      status.textContent = !terms.length ? t('Parcourir la documentation', 'Browse documentation')
+        : matches.length ? matches.length + t(' résultat', ' result') + (matches.length > 1 ? 's' : '') + (matches.length > 8 ? t(' · 8 affichés', ' · showing 8') : '')
+          : t('Aucun résultat. Essayez « modèle », « SQLite » ou « migration ».', 'No results. Try “model”, “SQLite” or “migration”.');
     } catch {
       if (ownRevision !== revision) return;
       results.replaceChildren();
-      status.textContent = 'Recherche indisponible. La documentation reste accessible :';
+      status.textContent = t('Recherche indisponible. La documentation reste accessible :', 'Search unavailable. You can still browse the documentation:');
       const link = document.createElement('a');
       link.className = 'search-result';
-      link.href = new URL('docs/index.html', root).href;
-      link.textContent = 'Ouvrir le sommaire de la documentation →';
+      link.href = new URL(document.body.dataset.docsHome, document.baseURI).href;
+      link.textContent = t('Ouvrir le sommaire de la documentation →', 'Open documentation contents →');
       results.append(link);
     }
   }

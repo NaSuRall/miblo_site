@@ -1,7 +1,8 @@
 # Le site de Miblo
 
-Présentation et documentation françaises de Miblo 0.9, avec un style terminal
-ASCII, un enregistrement de l’application et 16 pages de documentation.
+Présentation et documentation bilingues de Miblo 0.9, avec un style terminal
+ASCII, un enregistrement de l’application et 16 guides dans chaque langue.
+L’anglais est la version par défaut ; le français reste accessible partout.
 
 Le site est statique : HTML, CSS et JavaScript natif, sans dépendance à installer,
 police distante, outil de suivi ou service externe nécessaire à la lecture.
@@ -20,8 +21,9 @@ pour la recherche (le chargement de son index peut être bloqué via `file://`).
 
 ## Modifier le contenu
 
-- `content/home.html` : présentation et lecteur de la démonstration.
-- `content/pages.py` : chapitres de documentation, sections et exemples.
+- `content/home.html` / `content/home_en.html` : accueil français / anglais.
+- `content/pages.py` / `content/pages_en.py` : les 16 guides français / anglais.
+- `content/locales.py` : textes partagés et correspondance des adresses.
 - `scripts/build.py` : en-tête, navigation, sommaire et pied de page communs.
 - `style.css` : thème et mises en page adaptatives.
 - `docs.css` : lecture des guides, tableaux et exemples dépliables.
@@ -42,7 +44,8 @@ node --check demo.js
 ```
 
 Le générateur utilise uniquement la bibliothèque standard Python. Il produit
-`index.html`, `docs/*.html`, `search-index.json` et `sitemap.xml`. Modifier les
+`index.html`, `fr/index.html`, `docs/*.html`, `en/docs/*.html`, les index
+de recherche des deux langues et `sitemap.xml`. Modifier les
 sources plutôt que les pages générées. Le vérificateur contrôle tous les liens
 internes, les ancres, les identifiants, les métadonnées et les liens de recherche.
 Node n’est utilisé que pour vérifier la syntaxe JavaScript ; aucun bundler.
@@ -100,18 +103,60 @@ modifier `BASE` dans `scripts/build.py`, le contrôle dans `scripts/check.py`,
 Dans hPanel, sélectionner **cli.miblo.fr** et ouvrir son gestionnaire de fichiers.
 Sauvegarder `public_html` hors du dossier public avant une mise à jour, puis
 y publier `index.html`, les fichiers CSS et JavaScript, `favicon.svg`,
-`search-index.json`, `robots.txt`, `sitemap.xml`, ainsi que `docs/` et `assets/`.
+`search-index.json`, `robots.txt`, `sitemap.xml`, ainsi que `docs/`, `en/`, `fr/`, `assets/` et `.htaccess`.
 Vider le cache du site dans hPanel et vérifier l’accueil, la démo et la recherche.
 Les archives de sauvegarde, `.git/`, `content/` et `scripts/` restent hors du
 dossier public. Le dépôt ne déploie ni ne publie de crate automatiquement.
 
-Au 17 novembre 2026, l’API crates.io ne contient pas `miblo_cli_v2` et la recherche
-Miblo ne renvoie aucun paquet. Le site indique donc l’installation GitHub et
-renvoie vers la recherche crates.io. Après publication, remplacer les mentions
-dans `content/home.html` et `content/pages.py`, puis le lien `CRATES` du générateur
-par la fiche officielle et régénérer. Vérifier la commande de registre avant
-de la recommander.
+La bêta publique est distribuée sous le nom **miblo** sur crates.io, avec des
+binaires Windows x64, Linux x64 et macOS Apple Silicon/Intel sur GitHub Releases.
+La commande affichée est `cargo install miblo --locked`. Les liens des archives
+et leurs sommes SHA-256 sont centralisés dans `content/downloads.py`.
+Lors d’une release, mettre à jour la version, les deux accueils et les métadonnées,
+puis vérifier les téléchargements avant de déployer.
 
 La documentation est fondée sur le code et le README du dépôt `Miblo`, ainsi que
 sur les templates 0.6.0. Conserver les versions et les limites cohérentes lors
 des prochaines évolutions.
+
+## Langues et référencement
+
+- `/` : accueil anglais ; `/en/docs/` : guides anglais.
+- `/fr/` : accueil français ; `/docs/` : adresses des guides français conservées.
+- EN / FR pointe vers la même page dans l’autre langue et conserve l’ancre.
+- Pas de redirection selon le navigateur : chaque version est accessible aux
+  visiteurs et aux robots, même sans JavaScript.
+- Titres et descriptions propres à chaque page, URL canonique HTTPS, liens
+  `hreflang` réciproques (`en`, `fr`, `x-default` anglais).
+- Sitemap contenant les 34 pages canoniques ; aucun résultat de recherche
+  interne ni paramètre de démo ne crée une page indexable supplémentaire.
+- Données JSON-LD WebSite, SoftwareApplication, TechArticle et BreadcrumbList.
+  Aucun avis, note ou résultat commercial inventé.
+- Cartes Open Graph / Twitter de 1200 × 630 dans chaque langue. Pour les
+  régénérer : `python3 scripts/social_assets.py` (Pillow, uniquement à l’édition).
+- `.htaccess` redirige les adresses `index.html` vers leur répertoire canonique,
+  désactive le listing et limite le cache HTML/JSON à cinq minutes. Le serveur
+  Python de développement ne lit pas ce fichier ; le vérifier sur Hostinger.
+
+La recherche utilise 90 entrées par langue. Les légendes et commandes du lecteur
+sont traduites ; les cellules de l’enregistrement restent la sortie réelle de
+l’application, actuellement en français.
+
+Créer une archive à publier après les contrôles :
+
+```sh
+python3 scripts/package_site.py --output /tmp/miblo-site.zip
+```
+
+L’archive exclut sources, Git, scripts, caches et sauvegardes. Extraire son contenu
+dans `public_html` du site cli.miblo.fr, conserver la sauvegarde hors du dossier
+public et purger le cache. Après mise en ligne, vérifier une page anglaise, sa
+version française, la recherche, les liens d’installation et les redirections.
+
+Dans Google Search Console, soumettre `https://cli.miblo.fr/sitemap.xml`, puis
+suivre l’indexation et les Core Web Vitals. Le référencement technique ne garantit
+ni une date d’indexation ni une position : les guides utiles, leur maintenance et
+les liens depuis des projets pertinents comptent également.
+
+Références : [versions localisées Google](https://developers.google.com/search/docs/specialty/international/localized-versions),
+[URL canoniques](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls).

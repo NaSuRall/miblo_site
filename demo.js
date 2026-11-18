@@ -3,6 +3,12 @@
   const demo = document.getElementById('demo');
   if (!demo) return;
   const url = new URL('assets/miblo-demo.json', document.currentScript.src);
+  const en = document.documentElement.lang === 'en';
+  const translations = en ? fetch(new URL('assets/demo-en.json', document.currentScript.src)).then(response => {
+    if (!response.ok) throw new Error('translations unavailable');
+    return response.json();
+  }) : Promise.resolve({});
+  const t = (fr, english) => en ? english : fr;
   const byId = id => document.getElementById(id);
   const terminal = byId('demo-terminal');
   const play = byId('demo-play');
@@ -13,7 +19,7 @@
   const time = seconds => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 
   function playback() {
-    play.textContent = playing ? 'Ⅱ Pause' : '▶ Lire la démo';
+    play.textContent = playing ? 'Ⅱ Pause' : t('▶ Lire la démo', '▶ Play demo');
     play.setAttribute('aria-pressed', String(playing));
     caption.setAttribute('aria-live', playing ? 'off' : 'polite');
   }
@@ -83,7 +89,7 @@
   const expand = byId('demo-fullscreen');
   const modal = document.createElement('dialog');
   modal.className = 'record-modal';
-  modal.setAttribute('aria-label', 'Démonstration Miblo agrandie');
+  modal.setAttribute('aria-label', t('Démonstration Miblo agrandie', 'Expanded Miblo demo'));
   const position = document.createComment('demo position');
   demo.before(position);
   document.body.append(modal);
@@ -94,22 +100,26 @@
     previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     modal.append(demo);
-    expand.textContent = 'Réduire ⛶';
+    expand.textContent = t('Réduire ⛶', 'Collapse ⛶');
     modal.showModal();
     expand.focus();
   });
   modal.addEventListener('close', () => {
     position.after(demo);
     document.body.style.overflow = previousOverflow;
-    expand.textContent = 'Agrandir ⛶';
+    expand.textContent = t('Agrandir ⛶', 'Expand ⛶');
     expand.focus();
   });
-  fetch(url).then(response => {
+  Promise.all([fetch(url).then(response => {
     if (!response.ok) throw new Error('recording unavailable');
     return response.json();
-  }).then(data => {
+  }), translations]).then(([data, labels]) => {
     if (data.version !== 1 || !data.frames?.length || !data.chapters?.length) throw new Error('invalid recording');
     recording = data;
+    for (const frame of recording.frames) {
+      frame.caption = labels[frame.caption] || frame.caption;
+      frame.key = labels[frame.key] || frame.key;
+    }
     const requestedChapter = new URLSearchParams(window.location.search).get('demo');
     const chapterSlug = title => title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     const requested = recording.chapters.find(chapter => chapterSlug(chapter.title) === requestedChapter);
@@ -118,7 +128,7 @@
     progress.max = recording.frames.length - 1;
     chapterButtons = recording.chapters.map(chapter => {
       const button = document.createElement('button');
-      button.textContent = chapter.title;
+      button.textContent = labels[chapter.title] || chapter.title;
       button.addEventListener('click', () => seek(chapter.frame));
       byId('demo-chapters').append(button);
       return button;
@@ -127,6 +137,6 @@
     byId('demo-controls').hidden = false;
     byId('demo-chapters').hidden = false;
   }).catch(() => {
-    caption.textContent = 'Enregistrement indisponible. Rechargez la page ou consultez la documentation.';
+    caption.textContent = t('Enregistrement indisponible. Rechargez la page ou consultez la documentation.', 'Recording unavailable. Reload the page or browse the documentation.');
   });
 })();
