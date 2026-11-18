@@ -74,6 +74,7 @@
     if (playing) { pause(); return; }
     if (index === recording.frames.length - 1) { index = 0; render(); }
     playing = true;
+    document.dispatchEvent(new Event('miblo:demo-start'));
     playback();
     schedule();
   });

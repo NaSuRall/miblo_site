@@ -14,13 +14,15 @@ from content.pages import PAGES as FR
 from content.pages_en import PAGES as EN
 from content.locales import SLUGS, TEXT
 from content.downloads import VERSION, RELEASE
+from content.discovery import extra_pages
+from content.analytics import MEASUREMENT_ID
 
 BASE = 'https://cli.miblo.fr'
 GITHUB = 'https://github.com/NaSuRall/Miblo'
 CRATES = 'https://crates.io/crates/miblo'
 # Public ownership proof for the site's existing owner's Search Console account.
 GOOGLE_VERIFICATION = 'iTdcU0Bbpn9YEbI9BMKEY61hM8QU_BVbs59WiKIqeJw'
-PAGES = {'en': EN, 'fr': FR}
+PAGES = {'en': EN + extra_pages('en'), 'fr': FR + extra_pages('fr')}
 DEMO_GUIDES = {'premiere-api':'projet','interface':'langue','modeles':'modeles','relations':'relation','migrations':'migration','routes':'route','tester-les-routes':'post','bases-de-donnees':'schema','architecture':'code','templates':'projet'}
 
 
@@ -81,7 +83,14 @@ def header(lang, current, key):
 
 def footer(lang, current):
     t = TEXT[lang]
-    return f'''<footer class="site-footer"><div class="footer-main"><a class="brand" href="{relative(current,page_path(lang))}" aria-label="{t['back_home']}"><img class="brand-logo" src="{relative(current,'assets/miblo-logo.svg')}" width="350" height="102" alt=""></a><div class="footer-links"><a href="{relative(current,page_path(lang,'index'))}">Documentation</a><a href="{GITHUB}">GitHub ↗</a><a href="{CRATES}">crates.io ↗</a><a href="{RELEASE}">{"Téléchargements" if lang == "fr" else "Downloads"} ↗</a><a href="https://github.com/NaSuRall/miblo_templates/releases">Templates ↗</a></div></div><div class="footer-bottom"><span>Open source · MIT · {t['credit']}</span><span>Rust / Axum / SQLx</span></div></footer>'''
+    return f'''<footer class="site-footer"><div class="footer-main"><a class="brand" href="{relative(current,page_path(lang))}" aria-label="{t['back_home']}"><img class="brand-logo" src="{relative(current,'assets/miblo-logo.svg')}" width="350" height="102" alt=""></a><div class="footer-links"><a href="{relative(current,page_path(lang,'index'))}">Documentation</a><a href="{GITHUB}">GitHub ↗</a><a href="{CRATES}">crates.io ↗</a><a href="{relative(current,page_path(lang,'questions'))}">FAQ</a><a href="{relative(current,page_path(lang,'confidentialite'))}">{"Confidentialité" if lang == "fr" else "Privacy"}</a><button class="text-button" data-cookie-settings hidden>{"Choix des cookies" if lang == "fr" else "Cookie settings"}</button><a href="{RELEASE}">{"Téléchargements" if lang == "fr" else "Downloads"} ↗</a><a href="https://github.com/NaSuRall/miblo_templates/releases">Templates ↗</a></div></div><div class="footer-bottom"><span>Open source · MIT · {t['credit']}</span><span>Rust / Axum / SQLx</span></div></footer>'''
+
+
+def consent_banner(lang, current):
+    en = lang == 'en'
+    title = 'Audience measurement' if en else 'Statistiques de visite'
+    text = ('Allow Google Analytics to measure visits and clicks on the demo and downloads? The site works either way.' if en else 'Autoriser Google Analytics à mesurer les visites et clics sur la démo et les téléchargements ? Le site fonctionne dans les deux cas.')
+    return f'''<aside class="consent-banner" data-consent-banner aria-labelledby="consent-title" hidden><div><h2 id="consent-title">{title}</h2><p>{text} <a href="{relative(current,page_path(lang,'confidentialite'))}">{'Details' if en else 'Détails'} →</a></p></div><div class="consent-actions"><button data-consent-reject>{'Reject analytics' if en else 'Refuser les statistiques'}</button><button data-consent-accept>{'Accept analytics' if en else 'Accepter les statistiques'}</button></div></aside>'''
 
 
 def search_dialog(lang):
@@ -92,9 +101,13 @@ def search_dialog(lang):
 def structured_data(lang, path, key, title, description):
     url = canonical(path)
     website = {'@type':'WebSite','@id':BASE+'/#website','url':BASE+'/','name':'Miblo','inLanguage':['en','fr']}
-    software = {'@type':'SoftwareApplication','@id':BASE+'/#software','name':'Miblo','url':BASE+'/','applicationCategory':'DeveloperApplication','operatingSystem':'Windows, macOS, Linux','softwareVersion':VERSION,'inLanguage':['en','fr'],'downloadUrl':RELEASE,'releaseNotes':RELEASE,'description':TEXT[lang]['home_description'],'isAccessibleForFree':True,'license':'https://opensource.org/license/mit','sameAs':GITHUB,'softwareHelp':canonical(page_path(lang,'index')),'softwareRequirements':'Rust 1.88+, Cargo, rustfmt and native build tools','author':{'@type':'Person','name':'NaSuRall','url':'https://github.com/NaSuRall'}}
+    software = {'@type':'SoftwareApplication','@id':BASE+'/#software','name':'Miblo','url':BASE+'/','applicationCategory':'DeveloperApplication','operatingSystem':'Windows, macOS, Linux','softwareVersion':VERSION,'inLanguage':['en','fr'],'downloadUrl':RELEASE,'releaseNotes':RELEASE,'description':TEXT[lang]['home_description'],'isAccessibleForFree':True,'license':'https://opensource.org/license/mit','alternateName':'Miblo CLI','sameAs':[GITHUB,CRATES],'offers':{'@type':'Offer','price':'0','priceCurrency':'EUR'},'softwareHelp':canonical(page_path(lang,'index')),'softwareRequirements':'Rust 1.88+, Cargo, rustfmt and native build tools','author':{'@type':'Person','name':'NaSuRall','url':'https://github.com/NaSuRall'}}
     page = {'@type':'WebPage' if key is None else 'TechArticle','@id':url+'#page','url':url,'name':title,'headline':title,'description':description,'inLanguage':lang,'isPartOf':{'@id':BASE+'/#website'},'about':{'@id':BASE+'/#software'}}
     graph = [website, software, page]
+    if key == 'questions':
+        page['@type'] = 'FAQPage'
+        questions = next(item for item in PAGES[lang] if item['slug'] == key)
+        page['mainEntity'] = [{'@type':'Question','name':section['title'],'acceptedAnswer':{'@type':'Answer','text':plain(section['body'])}} for section in questions['sections']]
     if key is not None:
         items = [('Miblo',canonical(page_path(lang))),('Documentation',canonical(page_path(lang,'index')))]
         if key != 'index': items.append((title,url))
@@ -114,7 +127,7 @@ def page(lang, title, description, body, path, key=None):
     social = BASE + f'/assets/social-{lang}.png'
     extra = f'<link rel="stylesheet" href="{asset(path,"docs.css")}">' if key is not None else f'<link rel="stylesheet" href="{asset(path,"demo.css")}"><link rel="stylesheet" href="{asset(path,"assets/miblo-demo.css")}"><script defer src="{asset(path,"demo.js")}"></script>'
     return f'''<!doctype html>
-<html lang="{lang}"><head><meta charset="utf-8">{verification}<meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(description,quote=True)}"><meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#0c0e12"><meta name="color-scheme" content="dark"><link rel="canonical" href="{url}">{alt}<meta property="og:type" content="{'article' if key is not None else 'website'}"><meta property="og:site_name" content="Miblo"><meta property="og:locale" content="{locale}"><meta property="og:locale:alternate" content="{other_locale}"><meta property="og:title" content="{html.escape(title,quote=True)}"><meta property="og:description" content="{html.escape(description,quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{social}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{t['image_alt']}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(title,quote=True)}"><meta name="twitter:description" content="{html.escape(description,quote=True)}"><meta name="twitter:image" content="{social}"><meta name="twitter:image:alt" content="{t['image_alt']}"><link rel="icon" href="{asset(path,'favicon.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{asset(path,'style.css')}"><script defer src="{asset(path,'app.js')}"></script>{extra}<script type="application/ld+json">{structured_data(lang,path,key,title,description)}</script></head><body class="{'docs-page' if key is not None else 'home-page'}" data-search-index="{relative(path,'search-index.json' if lang == 'en' else 'fr/search-index.json')}" data-docs-home="{relative(path,page_path(lang,'index'))}">{header(lang,path,key)}{body}{footer(lang,path)}{search_dialog(lang)}</body></html>'''
+<html lang="{lang}"><head><meta charset="utf-8">{verification}<meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(description,quote=True)}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><meta name="theme-color" content="#0c0e12"><meta name="color-scheme" content="dark"><link rel="canonical" href="{url}">{alt}<meta property="og:type" content="{'article' if key is not None else 'website'}"><meta property="og:site_name" content="Miblo"><meta property="og:locale" content="{locale}"><meta property="og:locale:alternate" content="{other_locale}"><meta property="og:title" content="{html.escape(title,quote=True)}"><meta property="og:description" content="{html.escape(description,quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{social}"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{t['image_alt']}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(title,quote=True)}"><meta name="twitter:description" content="{html.escape(description,quote=True)}"><meta name="twitter:image" content="{social}"><meta name="twitter:image:alt" content="{t['image_alt']}"><link rel="icon" href="{asset(path,'favicon.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{asset(path,'style.css')}"><script defer src="{asset(path,'app.js')}"></script><script defer src="{asset(path,'analytics.js')}" data-measurement-id="{MEASUREMENT_ID}"></script>{extra}<script type="application/ld+json">{structured_data(lang,path,key,title,description)}</script></head><body class="{'docs-page' if key is not None else 'home-page'}" data-search-index="{relative(path,'search-index.json' if lang == 'en' else 'fr/search-index.json')}" data-docs-home="{relative(path,page_path(lang,'index'))}">{header(lang,path,key)}{body}{footer(lang,path)}{consent_banner(lang,path)}{search_dialog(lang)}</body></html>'''
 
 
 def sidebar(lang, current):
@@ -184,8 +197,22 @@ def main():
             for section in item['sections']:
                 search.append(dict(title=item['title'],section=section['title'],url=path+'#'+section['id'],text=plain(section['body'])))
         write('search-index.json' if lang=='en' else 'fr/search-index.json',json.dumps(search,ensure_ascii=False,separators=(',',':')))
-    urls = ''.join(f'<url><loc>{canonical(path)}</loc></url>' for path in paths)
-    write('sitemap.xml',f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
+    urls = []
+    for lang, pages in PAGES.items():
+        for key in [None, *[p['slug'] for p in pages]]:
+            alternates = ''.join(f'<xhtml:link rel="alternate" hreflang="{code}" href="{canonical(page_path(code,key))}"/>' for code in ('en','fr'))
+            alternates += f'<xhtml:link rel="alternate" hreflang="x-default" href="{canonical(page_path("en",key))}"/>'
+            urls.append(f'<url><loc>{canonical(page_path(lang,key))}</loc>{alternates}</url>')
+    write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+''.join(urls)+'</urlset>\n')
+    llms = [f'# Miblo CLI\n\n> Free, MIT-licensed Rust API scaffolding tool with an interactive terminal UI. Current CLI: {VERSION}; template packs: 0.6.0.\n',
+            'Generates editable Axum and SQLx projects, CRUD routes, SQL models, foreign keys and migrations for SQLite or MySQL. The terminal UI also tests requests and displays API/database status. English is the default; Shift+L selects English or French.\n',
+            'Miblo uses versioned templates, not AI inference. Node.js, PostgreSQL and OpenAPI generation are not supported in this version. Authentication, authorization, business rules and deployment remain the developer’s responsibility.\n',
+            f'## Official sources\n\n- [Website]({BASE}/)\n- [Source code]({GITHUB})\n- [Rust crate]({CRATES})\n- [Binaries]({RELEASE})\n']
+    for lang, pages in PAGES.items():
+        llms.append('## '+('English documentation' if lang=='en' else 'Documentation française')+'\n')
+        llms.extend(f'- [{item["title"]}]({canonical(page_path(lang,item["slug"]))}): {item["intro"]}' for item in pages if item['slug'] != 'confidentialite')
+        llms.append('')
+    write('llms.txt','\n'.join(llms)+'\n')
     print(f'Built {len(paths)} pages in English and French, two search indexes and sitemap.')
 
 

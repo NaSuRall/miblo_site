@@ -1,0 +1,55 @@
+# Miblo CLI
+
+> Free, MIT-licensed Rust API scaffolding tool with an interactive terminal UI. Current CLI: 0.9.1; template packs: 0.6.0.
+
+Generates editable Axum and SQLx projects, CRUD routes, SQL models, foreign keys and migrations for SQLite or MySQL. The terminal UI also tests requests and displays API/database status. English is the default; Shift+L selects English or French.
+
+Miblo uses versioned templates, not AI inference. Node.js, PostgreSQL and OpenAPI generation are not supported in this version. Authentication, authorization, business rules and deployment remain the developer’s responsibility.
+
+## Official sources
+
+- [Website](https://cli.miblo.fr/)
+- [Source code](https://github.com/NaSuRall/Miblo)
+- [Rust crate](https://crates.io/crates/miblo)
+- [Binaries](https://github.com/NaSuRall/Miblo/releases/tag/v0.9.1)
+
+## English documentation
+
+- [Documentation](https://cli.miblo.fr/en/docs/): Install Miblo, create a Rust API and manage its models from your terminal.
+- [Installation](https://cli.miblo.fr/en/docs/installation.html): Install Miblo for Rust API development on Windows, macOS or Linux. Rust, Cargo and rustfmt are required.
+- [Create a REST API in Rust](https://cli.miblo.fr/en/docs/first-api.html): Create a REST API with Rust, Axum and SQLite: generate a User model and CRUD routes, then test a POST request with Miblo.
+- [Terminal interface and shortcuts](https://cli.miblo.fr/en/docs/terminal-interface.html): Navigate Miblo’s terminal workspace, manage your API and read its status indicators.
+- [Models and fields](https://cli.miblo.fr/en/docs/models.html): Generate a SQL table, Rust model and five CRUD endpoints from a model definition.
+- [Relationships and foreign keys](https://cli.miblo.fr/en/docs/relationships.html): Connect Rust API models with SQL foreign keys, indexes and deletion rules.
+- [Update models and migrations](https://cli.miblo.fr/en/docs/migrations.html): Add optional fields or relationships to existing tables while keeping their rows.
+- [Create API routes](https://cli.miblo.fr/en/docs/routes.html): Connect a new HTTP endpoint to a model’s SQL-backed CRUD, or generate a custom handler and service.
+- [Test HTTP routes](https://cli.miblo.fr/en/docs/testing-routes.html): Send POST and PATCH requests with prefilled forms, and inspect HTTP responses inside Miblo.
+- [SQLite and MySQL](https://cli.miblo.fr/en/docs/databases.html): Configure SQLite automatically or connect Miblo to MySQL, then inspect and apply SQL migrations.
+- [Generated Rust code](https://cli.miblo.fr/en/docs/generated-code.html): Find your Axum handlers, request types, business logic and SQLx queries in the generated project.
+- [Templates and offline mode](https://cli.miblo.fr/en/docs/templates.html): Download versioned Miblo templates, verify their checksums and reuse them offline.
+- [CLI command reference](https://cli.miblo.fr/en/docs/cli-reference.html): Miblo commands and options for project creation, models, routes, databases and templates.
+- [Configuration](https://cli.miblo.fr/en/docs/configuration.html): Project files and environment variables used by Miblo and your generated Rust API.
+- [Troubleshooting](https://cli.miblo.fr/en/docs/troubleshooting.html): Resolve template errors, route responses, database status and Rust build problems in Miblo.
+- [Contribute](https://cli.miblo.fr/en/docs/contributing.html): Contribute to Miblo’s open-source CLI, templates and documentation on GitHub.
+- [Miblo CLI: questions and answers](https://cli.miblo.fr/en/docs/faq.html): What Miblo generates, which databases it supports and how to use the resulting Rust API.
+
+## Documentation française
+
+- [Documentation](https://cli.miblo.fr/docs/): Installer Miblo, créer une API et gérer ses modèles depuis le terminal.
+- [Installation](https://cli.miblo.fr/docs/installation.html): Installez Miblo avec Cargo ou téléchargez le binaire Windows, macOS ou Linux. Rust, Cargo et rustfmt restent nécessaires pour les API.
+- [Créer une API REST en Rust](https://cli.miblo.fr/docs/premiere-api.html): Créer une API REST avec Rust, Axum et SQLite : générer un modèle User, ses routes CRUD et tester une requête POST avec Miblo.
+- [Interface et raccourcis](https://cli.miblo.fr/docs/interface.html): Les panneaux, les touches et les états affichés par Miblo.
+- [Modèles et champs](https://cli.miblo.fr/docs/modeles.html): Un modèle génère une table SQL, des fichiers Rust et cinq routes CRUD.
+- [Relations](https://cli.miblo.fr/docs/relations.html): Une clé étrangère relie un champ au id d’un autre modèle.
+- [Modifier un modèle](https://cli.miblo.fr/docs/migrations.html): Ajouter des champs ou des relations à une table existante.
+- [Créer des routes](https://cli.miblo.fr/docs/routes.html): Créer une URL liée au CRUD d’un modèle ou une fonction à compléter.
+- [Tester les routes](https://cli.miblo.fr/docs/tester-les-routes.html): Choisir une route, modifier les valeurs du formulaire et envoyer.
+- [SQLite et MySQL](https://cli.miblo.fr/docs/bases-de-donnees.html): SQLite se configure automatiquement. MySQL nécessite un serveur et une connexion.
+- [Le code généré](https://cli.miblo.fr/docs/architecture.html): Les fichiers générés et l’endroit où écrire votre code.
+- [Templates & mode hors ligne](https://cli.miblo.fr/docs/templates.html): Les templates sont téléchargés, vérifiés et mis en cache. Ils restent hors du binaire.
+- [Référence du CLI](https://cli.miblo.fr/docs/commandes.html): Les commandes utilisables dans le shell et dans vos scripts.
+- [Configuration](https://cli.miblo.fr/docs/configuration.html): Les fichiers et variables utilisés par Miblo et par l’API générée.
+- [Dépannage](https://cli.miblo.fr/docs/depannage.html): Les erreurs courantes et les actions pour les résoudre.
+- [Contribuer](https://cli.miblo.fr/docs/contribuer.html): Le CLI, les templates et ce site sont open source sous licence MIT.
+- [Miblo CLI : questions fréquentes](https://cli.miblo.fr/docs/questions.html): Ce que Miblo génère, les bases prises en charge et comment utiliser l’API Rust obtenue.
+

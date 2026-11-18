@@ -1,7 +1,7 @@
 # Le site de Miblo
 
 Présentation et documentation bilingues de Miblo 0.9.1, avec un style terminal
-ASCII, un enregistrement de l’application et 16 guides dans chaque langue.
+ASCII, un enregistrement de l’application et 18 pages de documentation et d’information dans chaque langue.
 L’anglais est la version par défaut ; le français reste accessible partout.
 
 Le site est statique : HTML, CSS et JavaScript natif, sans dépendance à installer,
@@ -141,7 +141,7 @@ des prochaines évolutions.
   désactive le listing et limite le cache HTML/JSON à cinq minutes. Le serveur
   Python de développement ne lit pas ce fichier ; le vérifier sur Hostinger.
 
-La recherche utilise 93 entrées par langue. Les légendes et commandes du lecteur
+La recherche utilise 105 entrées par langue. Les légendes et commandes du lecteur
 sont traduites ; les cellules de l’enregistrement restent la sortie réelle de
 l’application : démarrage en anglais, puis passage en français depuis son menu.
 Les URL des données et légendes portent leur empreinte pour éviter un mélange
@@ -165,3 +165,69 @@ les liens depuis des projets pertinents comptent également.
 
 Références : [versions localisées Google](https://developers.google.com/search/docs/specialty/international/localized-versions),
 [URL canoniques](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls).
+
+
+## Mesure d’audience et campagnes
+
+Google Analytics utilise la propriété **Miblo CLI — cli.miblo.fr** (565008298),
+le flux Web **Site Miblo CLI** (16365965729) et l’identifiant public
+`G-1JWCJX6DQ7`, centralisé dans `content/analytics.py`. Cet identifiant n’est pas
+un secret. Ne jamais ajouter de clé d’API ou de jeton au site statique.
+
+`analytics.js` charge Google uniquement après acceptation, sur `cli.miblo.fr`.
+La préférence expire après 180 jours et se modifie via le pied de page.
+Les aperçus locaux n’envoient rien à Google. Les mesures améliorées automatiques
+sont désactivées pour ce flux : les événements choisis sont `page_view`,
+`demo_start`, `install_copy`, `install_click` et `download_click`. Les clics
+ne prouvent ni un téléchargement terminé ni une installation réussie.
+Le texte des recherches, les valeurs des formulaires et les corps de requêtes
+ne sont pas collectés par ce code. La balise désactive les fonctions publicitaires.
+
+Liens prêts pour les publications françaises :
+
+- LinkedIn : https://cli.miblo.fr/fr/?utm_source=linkedin&utm_medium=social&utm_campaign=miblo_beta_091&utm_content=demo
+- Instagram Reels : https://cli.miblo.fr/fr/?utm_source=instagram&utm_medium=social&utm_campaign=miblo_beta_091&utm_content=reel
+- Instagram bio : https://cli.miblo.fr/fr/?utm_source=instagram&utm_medium=social&utm_campaign=miblo_beta_091&utm_content=bio
+
+Pour une campagne payante, utiliser `utm_medium=paid_social`. Pour la page
+anglaise, remplacer `/fr/` par `/`. Les valeurs UTM acceptées contiennent
+uniquement lettres, chiffres, tirets et underscores, sur 80 caractères maximum.
+Ne pas y placer de nom, d’e-mail ou d’autre donnée personnelle. La préférence
+s’applique à tout le site ; seules les visites consenties apparaîtront dans GA4.
+
+Contrôle : `node scripts/check_analytics.cjs` couvre acceptation, refus,
+retrait, expiration, stockage indisponible, retrait depuis un autre onglet,
+nettoyage des URL et désactivation en aperçu local. Dans Google Analytics,
+consulter les rapports d’acquisition et les événements après réception des données.
+
+## Référencement Google et assistants IA
+
+- Le sitemap canonique est `https://cli.miblo.fr/sitemap.xml` (`xml`, pas `xlm`).
+  Il est généré avec les versions EN/FR/x-default de chaque page. Pas de fausses
+  dates de modification ni de pages dupliquées pour les campagnes UTM.
+- La propriété Search Console `https://cli.miblo.fr/` est vérifiée par la balise
+  déjà présente. Le sitemap était lu avec succès avant cette mise à jour.
+- Titres, descriptions, canonical, hreflang, Open Graph, images sociales et
+  données structurées sont générés depuis les mêmes sources. La FAQ structurée
+  reprend exactement les réponses visibles ; elle ne garantit pas un résultat
+  enrichi Google, dont l’affichage est restreint selon le type de site.
+- `robots.txt` autorise les moteurs et les robots de recherche OpenAI/Anthropic.
+  Le contenu et les liens essentiels sont servis en HTML sans JavaScript.
+- `llms.txt` est un index facultatif des sources officielles et de la documentation,
+  généré avec la version courante. Ce n’est ni un enregistrement auprès des IA,
+  ni une garantie de citation ou d’entraînement des modèles.
+- La génération concerne Rust/Axum/SQLx, SQLite et MySQL. La FAQ précise les
+  limites pour éviter que des descriptions externes attribuent des fonctionnalités
+  absentes à Miblo. Ne pas publier de notes, avis ou performances inventés.
+
+À suivre après publication : indexation et requêtes dans Search Console,
+visites depuis les moteurs/assistants et campagnes dans GA4. Les aperçus sociaux
+utilisent les images 1200 × 630 existantes. Une publication avec un lien réel
+vers la démo aide à faire découvrir le projet ; aucune campagne n’est envoyée
+ni achetée automatiquement par ce dépôt.
+
+Références de mise en œuvre :
+[Google : recherche et IA](https://developers.google.com/search/docs/appearance/ai-features),
+[OpenAI : robots de recherche](https://developers.openai.com/api/docs/bots),
+[Anthropic : robots](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler),
+[Google : consentement](https://developers.google.com/tag-platform/security/guides/consent).

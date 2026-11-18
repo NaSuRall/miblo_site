@@ -8,6 +8,7 @@ import sys
 from urllib.parse import parse_qs, unquote, urlsplit
 import unicodedata
 import xml.etree.ElementTree as ET
+from urllib.robotparser import RobotFileParser
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
@@ -86,7 +87,7 @@ def main():
         description=doc.meta.get('description')
         if not description or description in descriptions: doc.errors.append('Missing/duplicate description')
         descriptions.add(description)
-        if doc.meta.get('robots')!='index,follow,max-image-preview:large': doc.errors.append('Unexpected indexing policy')
+        if doc.meta.get('robots')!='index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1': doc.errors.append('Unexpected indexing policy')
         expected_alternates={code:canonical(page_path(code,key)) for code in ('en','fr')}
         expected_alternates['x-default']=expected_alternates['en']
         if doc.alternates!=expected_alternates: doc.errors.append('Incomplete/wrong hreflang cluster')
@@ -98,9 +99,14 @@ def main():
         check_link(path,doc.meta.get('og:image',''))
         try:
             graph=json.loads(doc.json_text)['@graph']
-            article=next(x for x in graph if x.get('@type') in ('WebPage','TechArticle'))
+            article=next(x for x in graph if x.get('@type') in ('WebPage','TechArticle','FAQPage'))
             if article['url']!=doc.canonical or article['inLanguage']!=lang: doc.errors.append('Structured data language/URL mismatch')
             if key is not None and not any(x['@type']=='BreadcrumbList' for x in graph): doc.errors.append('Missing breadcrumb schema')
+            if key == 'questions':
+                from scripts.build import plain
+                content=next(item for item in PAGES[lang] if item['slug']==key)
+                expected_faq=[(s['title'],plain(s['body'])) for s in content['sections']]
+                if [(q['name'],q['acceptedAnswer']['text']) for q in article['mainEntity']]!=expected_faq: doc.errors.append('FAQ schema differs from visible answers')
         except (ValueError,KeyError,StopIteration): doc.errors.append('Invalid structured data')
         errors.extend(f'{relative}: {e}' for e in doc.errors)
         for href in doc.links: check_link(path,href)
@@ -123,7 +129,18 @@ def main():
     sitemap=ET.parse(ROOT/'sitemap.xml')
     urls=[loc.text for loc in sitemap.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
     if len(urls)!=len(expected) or set(urls)!={canonical(p) for p in expected}: errors.append('Sitemap does not cover canonical pages exactly')
+    for url in sitemap.findall('{http://www.sitemaps.org/schemas/sitemap/0.9}url'):
+        address=url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc').text
+        doc=next(d for d in documents.values() if d.canonical==address)
+        alternates={link.get('hreflang'):link.get('href') for link in url.findall('{http://www.w3.org/1999/xhtml}link')}
+        if alternates!=doc.alternates: errors.append('Sitemap hreflang mismatch: '+address)
     if f'Sitemap: {BASE}/sitemap.xml' not in (ROOT/'robots.txt').read_text(): errors.append('Wrong robots sitemap')
+    robots=RobotFileParser()
+    robots.parse((ROOT/'robots.txt').read_text().splitlines())
+    for bot in ('Googlebot','bingbot','OAI-SearchBot','ChatGPT-User','Claude-SearchBot','Claude-User','Google-Extended'):
+        if not all(robots.can_fetch(bot,url) for url in urls): errors.append('Blocked crawler: '+bot)
+    import re
+    for href in re.findall(r'\]\((https://cli\.miblo\.fr/[^)]+)\)',(ROOT/'llms.txt').read_text()): check_link(ROOT/'index.html',href)
     if errors: raise SystemExit('\n'.join(errors))
     print(f'PASS: {len(documents)} bilingual pages; {checked} local links; {entries_count} search entries; canonical/hreflang, structured data, social cards and sitemap.')
 

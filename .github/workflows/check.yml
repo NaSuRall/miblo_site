@@ -17,5 +17,8 @@ jobs:
         run: |
           node --check app.js
           node --check demo.js
+          node --check analytics.js
+      - name: Check consent and tracking behavior
+        run: node scripts/check_analytics.cjs
       - name: Ensure generated files are up to date
-        run: git diff --exit-code -- index.html docs en fr assets/miblo-demo.css search-index.json sitemap.xml
+        run: git diff --exit-code -- index.html docs en fr assets/miblo-demo.css search-index.json sitemap.xml llms.txt

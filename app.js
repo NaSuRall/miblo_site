@@ -44,6 +44,7 @@
         button.focus();
       }
       if (copied) {
+        if (/cargo install miblo\b/.test(value)) document.dispatchEvent(new Event('miblo:install-copy'));
         button.textContent = t('Copié ✓', 'Copied ✓');
         announce(t('Commande copiée.', 'Command copied.'));
         setTimeout(() => { button.textContent = t('Copier', 'Copy'); }, 2000);
