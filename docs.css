@@ -34,6 +34,13 @@
 .doc-feedback { margin-top: 22px; }
 .doc-entry-list a { padding-block: 15px; }
 .docs-toc { top: 110px; padding-left: 14px; font-size: 11px; }
+.doc-heading .doc-verified { margin: 12px 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.doc-inline-toc { display: none; }
+.doc-inline-toc ul { padding-left: 18px; margin-bottom: 16px; }
+.doc-inline-toc li { margin: 8px 0; font-size: 12px; }
+@media(max-width:1160px) {
+  .doc-inline-toc { display: block; }
+}
 @media(max-width:1150px) {
   .docs-layout { grid-template-columns: 220px minmax(0,1fr); }
   .docs-toc { display: none; }

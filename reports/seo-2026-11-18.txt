@@ -1,0 +1,125 @@
+AUDIT SEO — CLI.MIBLO.FR — 18 NOVEMBRE 2026
+
+Périmètre : site public EN/FR, sources statiques, Search Console, test mobile
+PageSpeed et vérification réelle des exemples avec Miblo 0.9.1.
+Skills utilisés : seo-audit, ai-seo, schema.
+
+CONCLUSION
+La base technique est saine. Aucune anomalie bloquante détectée dans les
+contrôles réalisés. Les priorités sont la pertinence des guides, des exemples
+reproductibles et la découverte du projet par des développeurs. Un bon score
+technique ne mesure pas une position dans Google. Aucun rang n'est garanti.
+
+ÉTAT INITIAL MESURÉ
+- Search Console : sitemap lu le 18/11/2026, « Opération effectuée »,
+  38 pages découvertes. Découverte ne signifie pas indexation.
+- Performances et indexation : « Traitement des données en cours, veuillez
+  réessayer dans un jour environ ». Clics, impressions, positions et nombre
+  de pages indexées indisponibles ; ne pas les interpréter comme des zéros.
+- PageSpeed mobile du 18/11/2026, avant ces changements : performance 100,
+  accessibilité 100, bonnes pratiques 100, SEO 100. LCP 0,9 s, CLS 0,019,
+  TBT 0 ms. Mesure de laboratoire ; données utilisateurs CrUX insuffisantes.
+  Rapport : https://pagespeed.web.dev/analysis/https-cli-miblo-fr-fr/qf871eo5oc?form_factor=mobile
+- HTTP redirige vers HTTPS. /index.html et /fr/index.html aboutissent à
+  leurs URL canoniques. Une URL inexistante renvoie bien HTTP 404.
+- Contenu essentiel dans le HTML ; titres, descriptions, canonical,
+  hreflang réciproques EN/FR/x-default et JSON-LD déjà présents.
+- Analytics déjà conditionné au consentement. Les robots de recherche
+  Google, OpenAI et Anthropic peuvent accéder aux pages publiques.
+
+RECHERCHES À CIBLER ET PAGE RESPONSABLE
+Hypothèses éditoriales fondées sur le produit et les intentions observées,
+pas sur des volumes estimés ni sur des positions Google inventées.
+
+1. Générateur API Rust / Rust API generator
+   /fr/ et /
+   Intention : comprendre l'outil, voir sa démo, l'installer.
+2. Créer API Rust Axum SQLite / build Rust REST API Axum SQLite
+   /docs/premiere-api.html et /en/docs/first-api.html
+   Intention : obtenir une première API qui répond, étape par étape.
+3. Relation User Group Rust / Rust API foreign key example
+   /docs/exemple-equipes.html et /en/docs/user-group-api.html
+   Intention : relier des tables existantes et tester une route liée au modèle.
+4. Générer CRUD Rust / generate Rust CRUD
+   /docs/modeles.html et /en/docs/models.html
+   Intention : choisir les champs et comprendre les fichiers/routes générés.
+5. API Rust SQLite MySQL / Rust API SQLite MySQL setup
+   /docs/bases-de-donnees.html et /en/docs/databases.html
+   Intention : choisir et configurer la base du projet.
+
+« Créer une API » seul est beaucoup plus large que le produit. Commencer par
+les recherches Rust/Axum/SQLite et MySQL est une hypothèse plus pertinente pour
+attirer des utilisateurs capables d'installer et d'utiliser Miblo.
+
+CORRECTIONS RÉALISÉES
+- Identité « Miblo CLI » harmonisée dans les titres, l'introduction, Open Graph
+  et les entités WebSite/SoftwareApplication. Le nom Miblo existe aussi dans
+  d'autres produits ; les liens vers le dépôt et la crate désignent celui-ci.
+- Guide première API enrichi en français et en anglais : prérequis, commandes,
+  tableau CRUD, POST réel, réponse JSON, lecture GET, code généré et liens utiles.
+  URL et ancres existantes conservées.
+- Nouvel exemple User/Group : clé étrangère facultative, migration conservant
+  Alice, affectation par PATCH, route POST /members réutilisant le SQL de User.
+- Date de vérification visible, auteur et date structurée sur ces deux guides.
+  lastmod uniquement sur ces guides réellement modifiés et vérifiés, pas une
+  date renouvelée automatiquement pour faire croire que tout le site est neuf.
+- Liens depuis l'accueil, navigation et guide initial ; recherche interne,
+  sitemap et index documentaire llms.txt incluent les nouveaux contenus.
+- Sommaire repliable sur mobile et tablette ; contrôle à 390 px sans
+  débordement horizontal de la page.
+- Correction documentaire : référence étrangère inexistante = HTTP 400 ;
+  violation d'unicité = HTTP 409 dans le parcours testé.
+
+VALIDATION DU CONTENU
+API temporaire SQLite, données fictives uniquement, sans modifier une API
+utilisateur. Template téléchargé depuis la release officielle 0.6.0 :
+https://github.com/NaSuRall/miblo_templates/releases/download/v0.6.0/rust-axum-sqlite.tar.gz
+SHA-256 : 5b005df180b34ebea27e51f9af2d81d91524900676c0042a86294e3f9c6d2bbe
+
+Compilation Cargo --locked. Résultats vérifiés : POST 201, GET et PATCH 200,
+DELETE 204, doublon e-mail 409 ; ajout de Group et de group_id sans perdre
+Alice, ancienne ligne avec NULL ; clé étrangère et index générés ; PATCH vers
+Group valide et POST /members 201 ; groupe inexistant refusé avec HTTP 400.
+Le parcours de cette intervention ne teste pas un serveur MySQL.
+
+Contrôles statiques : 40 pages, 2 599 liens locaux, 230 entrées de recherche,
+canonical/hreflang, données structurées, cartes sociales et sitemap valides.
+Contrôles du consentement Analytics réussis. Lecture navigateur EN/FR et mobile.
+
+PRIORITÉS APRÈS PUBLICATION
+P1 — Dès que Search Console fournit ses données, vérifier l'indexation de
+     l'accueil et des guides. Traiter les exclusions réelles, sans demander
+     quotidiennement l'indexation des mêmes URL.
+P1 — Après une période exploitable (par exemple 28 jours), comparer requête
+     et page, impressions, clics, CTR et position ; segmenter EN/FR. Améliorer
+     d'abord les pages visibles autour des positions 8 à 20, si elles existent.
+P1 — Publier un retour d'expérience technique original avec le code et un lien
+     vers le guide, dans les communautés Rust où cela apporte une réponse utile.
+     Obtenir des retours et mentions réelles ; pas d'achat ou spam de liens.
+P2 — Ajouter un tutoriel MySQL complet seulement après l'avoir exécuté, puis
+     des exemples issus de besoins réels. Éviter les variantes presque identiques
+     de « générateur API » qui se concurrencent ou promettent des stacks absentes.
+P2 — Suivre les installations et téléchargements consentis dans GA4 en plus
+     des clics Google : le trafic pertinent compte davantage qu'un mot-clé vague.
+
+Ces suivis ne sont pas des tâches planifiées : aucune automatisation récurrente,
+publication sociale ou demande de backlink n'a été créée par cet audit.
+
+IA ET DONNÉES STRUCTURÉES
+Les mêmes pages utiles et accessibles peuvent servir aux moteurs et assistants.
+llms.txt est un index facultatif, pas une inscription dans ChatGPT ou Claude.
+Le balisage décrit le contenu ; il ne garantit ni citation, ni classement,
+ni résultat enrichi. Aucun avis ou aggregateRating inventé n'a été ajouté.
+
+RÉFÉRENCES
+Google, contenu utile et fiable :
+https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+Google, fonctionnalités IA :
+https://developers.google.com/search/docs/appearance/ai-features
+Google, titres des résultats :
+https://developers.google.com/search/docs/appearance/title-link
+
+Lecture du paysage produit : https://gerust.rs/ présente également un
+générateur Rust Axum/SQLx. Le site Miblo doit donc démontrer ses propres
+parcours concrets (interface terminal, SQLite/MySQL, migrations et test de routes),
+sans prétendre être le seul outil existant.

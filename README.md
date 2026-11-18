@@ -210,7 +210,7 @@ consulter les rapports d’acquisition et les événements après réception des
 - Titres, descriptions, canonical, hreflang, Open Graph, images sociales et
   données structurées sont générés depuis les mêmes sources. La FAQ structurée
   reprend exactement les réponses visibles ; elle ne garantit pas un résultat
-  enrichi Google, dont l’affichage est restreint selon le type de site.
+  enrichi Google.
 - `robots.txt` autorise les moteurs et les robots de recherche OpenAI/Anthropic.
   Le contenu et les liens essentiels sont servis en HTML sans JavaScript.
 - `llms.txt` est un index facultatif des sources officielles et de la documentation,
@@ -225,6 +225,12 @@ visites depuis les moteurs/assistants et campagnes dans GA4. Les aperçus sociau
 utilisent les images 1200 × 630 existantes. Une publication avec un lien réel
 vers la démo aide à faire découvrir le projet ; aucune campagne n’est envoyée
 ni achetée automatiquement par ce dépôt.
+
+Audit du 18 novembre 2026 : [constats, recherches ciblées et priorités](reports/seo-2026-11-18.txt).
+Le parcours User/Group est défini dans `content/team_example.py`. Il prolonge
+le guide première API sans en dupliquer les étapes. Après une vérification réelle,
+mettre à jour `GUIDE_VERIFICATION` dans `scripts/build.py` ; cette date alimente
+la mention visible, le JSON-LD et `lastmod` des seuls guides concernés.
 
 Références de mise en œuvre :
 [Google : recherche et IA](https://developers.google.com/search/docs/appearance/ai-features),

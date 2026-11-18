@@ -17,7 +17,8 @@ Miblo uses versioned templates, not AI inference. Node.js, PostgreSQL and OpenAP
 
 - [Documentation](https://cli.miblo.fr/en/docs/): Install Miblo, create a Rust API and manage its models from your terminal.
 - [Installation](https://cli.miblo.fr/en/docs/installation.html): Install Miblo for Rust API development on Windows, macOS or Linux. Rust, Cargo and rustfmt are required.
-- [Create a REST API in Rust](https://cli.miblo.fr/en/docs/first-api.html): Create a REST API with Rust, Axum and SQLite: generate a User model and CRUD routes, then test a POST request with Miblo.
+- [Build a Rust REST API with Axum and SQLite](https://cli.miblo.fr/en/docs/first-api.html): Create a REST API with Rust, Axum and SQLite: generate a User model and CRUD routes, then test a POST request with Miblo.
+- [Rust API example: users, groups and foreign keys](https://cli.miblo.fr/en/docs/user-group-api.html): Connect User and Group in a Rust API: generate a SQL foreign key, preserve existing rows and add POST /members with Miblo CLI.
 - [Terminal interface and shortcuts](https://cli.miblo.fr/en/docs/terminal-interface.html): Navigate Miblo’s terminal workspace, manage your API and read its status indicators.
 - [Models and fields](https://cli.miblo.fr/en/docs/models.html): Generate a SQL table, Rust model and five CRUD endpoints from a model definition.
 - [Relationships and foreign keys](https://cli.miblo.fr/en/docs/relationships.html): Connect Rust API models with SQL foreign keys, indexes and deletion rules.
@@ -37,7 +38,8 @@ Miblo uses versioned templates, not AI inference. Node.js, PostgreSQL and OpenAP
 
 - [Documentation](https://cli.miblo.fr/docs/): Installer Miblo, créer une API et gérer ses modèles depuis le terminal.
 - [Installation](https://cli.miblo.fr/docs/installation.html): Installez Miblo avec Cargo ou téléchargez le binaire Windows, macOS ou Linux. Rust, Cargo et rustfmt restent nécessaires pour les API.
-- [Créer une API REST en Rust](https://cli.miblo.fr/docs/premiere-api.html): Créer une API REST avec Rust, Axum et SQLite : générer un modèle User, ses routes CRUD et tester une requête POST avec Miblo.
+- [Créer une API REST Rust avec Axum et SQLite](https://cli.miblo.fr/docs/premiere-api.html): Créer une API REST avec Rust, Axum et SQLite : générer un modèle User, ses routes CRUD et tester une requête POST avec Miblo.
+- [Exemple d’API Rust : utilisateurs, groupes et relations](https://cli.miblo.fr/docs/exemple-equipes.html): Relier User et Group dans une API Rust : générer une clé étrangère SQL, conserver les données et ajouter POST /members avec Miblo CLI.
 - [Interface et raccourcis](https://cli.miblo.fr/docs/interface.html): Les panneaux, les touches et les états affichés par Miblo.
 - [Modèles et champs](https://cli.miblo.fr/docs/modeles.html): Un modèle génère une table SQL, des fichiers Rust et cinq routes CRUD.
 - [Relations](https://cli.miblo.fr/docs/relations.html): Une clé étrangère relie un champ au id d’un autre modèle.

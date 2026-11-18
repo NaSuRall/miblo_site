@@ -12,17 +12,30 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from content.pages import PAGES as FR
 from content.pages_en import PAGES as EN
-from content.locales import SLUGS, TEXT
+from content.locales import SLUGS, TEXT, DOC_TITLES
 from content.downloads import VERSION, RELEASE
 from content.discovery import extra_pages
 from content.analytics import MEASUREMENT_ID
+from content.team_example import page as team_example
 
 BASE = 'https://cli.miblo.fr'
 GITHUB = 'https://github.com/NaSuRall/Miblo'
 CRATES = 'https://crates.io/crates/miblo'
 # Public ownership proof for the site's existing owner's Search Console account.
 GOOGLE_VERIFICATION = 'iTdcU0Bbpn9YEbI9BMKEY61hM8QU_BVbs59WiKIqeJw'
-PAGES = {'en': EN + extra_pages('en'), 'fr': FR + extra_pages('fr')}
+def documentation(lang, pages):
+    result = []
+    for item in pages:
+        result.append(item)
+        if item['slug'] == 'premiere-api':
+            result.append(team_example(lang))
+    return result + extra_pages(lang)
+
+
+PAGES = {'en': documentation('en', EN), 'fr': documentation('fr', FR)}
+# Update only after running these examples; do not stamp every build as fresh.
+VERIFIED_GUIDES = {'premiere-api', 'exemple-equipes'}
+GUIDE_VERIFICATION = {'date': '2026-11-18', 'version': '0.9.1'}
 DEMO_GUIDES = {'premiere-api':'projet','interface':'langue','modeles':'modeles','relations':'relation','migrations':'migration','routes':'route','tester-les-routes':'post','bases-de-donnees':'schema','architecture':'code','templates':'projet'}
 
 
@@ -100,10 +113,12 @@ def search_dialog(lang):
 
 def structured_data(lang, path, key, title, description):
     url = canonical(path)
-    website = {'@type':'WebSite','@id':BASE+'/#website','url':BASE+'/','name':'Miblo','inLanguage':['en','fr']}
-    software = {'@type':'SoftwareApplication','@id':BASE+'/#software','name':'Miblo','url':BASE+'/','applicationCategory':'DeveloperApplication','operatingSystem':'Windows, macOS, Linux','softwareVersion':VERSION,'inLanguage':['en','fr'],'downloadUrl':RELEASE,'releaseNotes':RELEASE,'description':TEXT[lang]['home_description'],'isAccessibleForFree':True,'license':'https://opensource.org/license/mit','alternateName':'Miblo CLI','sameAs':[GITHUB,CRATES],'offers':{'@type':'Offer','price':'0','priceCurrency':'EUR'},'softwareHelp':canonical(page_path(lang,'index')),'softwareRequirements':'Rust 1.88+, Cargo, rustfmt and native build tools','author':{'@type':'Person','name':'NaSuRall','url':'https://github.com/NaSuRall'}}
+    website = {'@type':'WebSite','@id':BASE+'/#website','url':BASE+'/','name':'Miblo CLI','alternateName':'Miblo','inLanguage':['en','fr']}
+    software = {'@type':'SoftwareApplication','@id':BASE+'/#software','name':'Miblo CLI','url':BASE+'/','applicationCategory':'DeveloperApplication','operatingSystem':'Windows, macOS, Linux','softwareVersion':VERSION,'inLanguage':['en','fr'],'downloadUrl':RELEASE,'releaseNotes':RELEASE,'description':TEXT[lang]['home_description'],'isAccessibleForFree':True,'license':'https://opensource.org/license/mit','alternateName':'Miblo','sameAs':[GITHUB,CRATES],'offers':{'@type':'Offer','price':'0','priceCurrency':'EUR'},'softwareHelp':canonical(page_path(lang,'index')),'softwareRequirements':'Rust 1.88+, Cargo, rustfmt and native build tools','author':{'@type':'Person','name':'NaSuRall','url':'https://github.com/NaSuRall'}}
     page = {'@type':'WebPage' if key is None else 'TechArticle','@id':url+'#page','url':url,'name':title,'headline':title,'description':description,'inLanguage':lang,'isPartOf':{'@id':BASE+'/#website'},'about':{'@id':BASE+'/#software'}}
     graph = [website, software, page]
+    if key in VERIFIED_GUIDES:
+        page.update(author=software['author'], dateModified=GUIDE_VERIFICATION['date'], image=BASE+f'/assets/social-{lang}.png')
     if key == 'questions':
         page['@type'] = 'FAQPage'
         questions = next(item for item in PAGES[lang] if item['slug'] == key)
@@ -127,7 +142,7 @@ def page(lang, title, description, body, path, key=None):
     social = BASE + f'/assets/social-{lang}.png'
     extra = f'<link rel="stylesheet" href="{asset(path,"docs.css")}">' if key is not None else f'<link rel="stylesheet" href="{asset(path,"demo.css")}"><link rel="stylesheet" href="{asset(path,"assets/miblo-demo.css")}"><script defer src="{asset(path,"demo.js")}"></script>'
     return f'''<!doctype html>
-<html lang="{lang}"><head><meta charset="utf-8">{verification}<meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(description,quote=True)}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><meta name="theme-color" content="#0c0e12"><meta name="color-scheme" content="dark"><link rel="canonical" href="{url}">{alt}<meta property="og:type" content="{'article' if key is not None else 'website'}"><meta property="og:site_name" content="Miblo"><meta property="og:locale" content="{locale}"><meta property="og:locale:alternate" content="{other_locale}"><meta property="og:title" content="{html.escape(title,quote=True)}"><meta property="og:description" content="{html.escape(description,quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{social}"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{t['image_alt']}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(title,quote=True)}"><meta name="twitter:description" content="{html.escape(description,quote=True)}"><meta name="twitter:image" content="{social}"><meta name="twitter:image:alt" content="{t['image_alt']}"><link rel="icon" href="{asset(path,'favicon.ico')}" type="image/x-icon" sizes="32x32"><link rel="icon" href="{asset(path,'favicon.png')}" type="image/png" sizes="32x32"><link rel="stylesheet" href="{asset(path,'style.css')}"><script defer src="{asset(path,'app.js')}"></script><script defer src="{asset(path,'analytics.js')}" data-measurement-id="{MEASUREMENT_ID}"></script>{extra}<script type="application/ld+json">{structured_data(lang,path,key,title,description)}</script></head><body class="{'docs-page' if key is not None else 'home-page'}" data-search-index="{relative(path,'search-index.json' if lang == 'en' else 'fr/search-index.json')}" data-docs-home="{relative(path,page_path(lang,'index'))}">{header(lang,path,key)}{body}{footer(lang,path)}{consent_banner(lang,path)}{search_dialog(lang)}</body></html>'''
+<html lang="{lang}"><head><meta charset="utf-8">{verification}<meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(description,quote=True)}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><meta name="theme-color" content="#0c0e12"><meta name="color-scheme" content="dark"><link rel="canonical" href="{url}">{alt}<meta property="og:type" content="{'article' if key is not None else 'website'}"><meta property="og:site_name" content="Miblo CLI"><meta property="og:locale" content="{locale}"><meta property="og:locale:alternate" content="{other_locale}"><meta property="og:title" content="{html.escape(title,quote=True)}"><meta property="og:description" content="{html.escape(description,quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{social}"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{t['image_alt']}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(title,quote=True)}"><meta name="twitter:description" content="{html.escape(description,quote=True)}"><meta name="twitter:image" content="{social}"><meta name="twitter:image:alt" content="{t['image_alt']}"><link rel="icon" href="{asset(path,'favicon.ico')}" type="image/x-icon" sizes="32x32"><link rel="icon" href="{asset(path,'favicon.png')}" type="image/png" sizes="32x32"><link rel="stylesheet" href="{asset(path,'style.css')}"><script defer src="{asset(path,'app.js')}"></script><script defer src="{asset(path,'analytics.js')}" data-measurement-id="{MEASUREMENT_ID}"></script>{extra}<script type="application/ld+json">{structured_data(lang,path,key,title,description)}</script></head><body class="{'docs-page' if key is not None else 'home-page'}" data-search-index="{relative(path,'search-index.json' if lang == 'en' else 'fr/search-index.json')}" data-docs-home="{relative(path,page_path(lang,'index'))}">{header(lang,path,key)}{body}{footer(lang,path)}{consent_banner(lang,path)}{search_dialog(lang)}</body></html>'''
 
 
 def sidebar(lang, current):
@@ -190,8 +205,15 @@ def main():
             nxt = f'<a href="{relative(path,page_path(lang,pages[i+1]["slug"]))}"><span>{t["next"]}</span>{pages[i+1]["title"]}</a>' if i+1<len(pages) else f'<a href="{relative(path,home_path)}"><span>{t["back"]}</span>{t["view_demo"]}</a>'
             demo = f'<a class="doc-demo-link" href="{relative(path,home_path)}?demo={DEMO_GUIDES[key]}#demo">▶ {t["view_demo"]} <span aria-hidden="true">→</span></a>' if key in DEMO_GUIDES else ''
             breadcrumb = SLUGS[key] if lang == 'en' else key
-            body = f'''<div class="docs-layout">{sidebar(lang,key)}<main class="doc-content" id="contenu"><div class="breadcrumb"><a href="{relative(path,home_path)}">~/miblo</a>/<a href="{relative(path,page_path(lang,'index'))}">docs</a>/<span>{breadcrumb}</span></div><div class="doc-heading"><h1>{html.escape(item['title'])}</h1><p class="lead">{html.escape(item['intro'])}</p>{demo}</div>{sections}<nav class="doc-pagination" aria-label="{t['pagination']}">{prev}{nxt}</nav><p class="doc-feedback"><a href="{GITHUB}/issues">{t['report']} ↗</a></p></main><aside class="docs-toc"><p>{t['on_page']}</p><nav aria-label="{t['toc']}"><ul>{toc}</ul></nav><div class="doc-version"><span class="status-dot"></span> Documentation {VERSION}<br><span>Templates 0.6.0</span></div></aside></div>'''
-            write(path,page(lang,f'{item["title"]} — {"Miblo documentation" if lang == "en" else "Documentation Miblo"}',item['intro'],body,path,key))
+            verified = ''
+            if key in VERIFIED_GUIDES:
+                date_label = '18 November 2026' if lang == 'en' else '18 novembre 2026'
+                label = 'Example tested on' if lang == 'en' else 'Exemple testé le'
+                with_label = 'with' if lang == 'en' else 'avec'
+                verified = f'<p class="doc-verified">{label} <time datetime="{GUIDE_VERIFICATION["date"]}">{date_label}</time> {with_label} Miblo {GUIDE_VERIFICATION["version"]} · <a href="https://github.com/NaSuRall">NaSuRall</a></p>'
+            inline_toc = f'<details class="doc-details doc-inline-toc"><summary>{t["on_page"]}</summary><nav aria-label="{t["toc"]}"><ul>{toc}</ul></nav></details>'
+            body = f'''<div class="docs-layout">{sidebar(lang,key)}<main class="doc-content" id="contenu"><div class="breadcrumb"><a href="{relative(path,home_path)}">~/miblo</a>/<a href="{relative(path,page_path(lang,'index'))}">docs</a>/<span>{breadcrumb}</span></div><div class="doc-heading"><h1>{html.escape(item['title'])}</h1>{verified}<p class="lead">{html.escape(item['intro'])}</p>{demo}</div>{inline_toc}{sections}<nav class="doc-pagination" aria-label="{t['pagination']}">{prev}{nxt}</nav><p class="doc-feedback"><a href="{GITHUB}/issues">{t['report']} ↗</a></p></main><aside class="docs-toc"><p>{t['on_page']}</p><nav aria-label="{t['toc']}"><ul>{toc}</ul></nav><div class="doc-version"><span class="status-dot"></span> Documentation {VERSION}<br><span>Templates 0.6.0</span></div></aside></div>'''
+            write(path,page(lang,DOC_TITLES[lang].get(key, f'{item["title"]} — Miblo CLI'),item['intro'],body,path,key))
             paths.append(path)
             search.append(dict(title=item['title'],section=t['overview'],url=path,text=item['intro'],overview=True))
             for section in item['sections']:
@@ -202,7 +224,8 @@ def main():
         for key in [None, *[p['slug'] for p in pages]]:
             alternates = ''.join(f'<xhtml:link rel="alternate" hreflang="{code}" href="{canonical(page_path(code,key))}"/>' for code in ('en','fr'))
             alternates += f'<xhtml:link rel="alternate" hreflang="x-default" href="{canonical(page_path("en",key))}"/>'
-            urls.append(f'<url><loc>{canonical(page_path(lang,key))}</loc>{alternates}</url>')
+            lastmod = f'<lastmod>{GUIDE_VERIFICATION["date"]}</lastmod>' if key in VERIFIED_GUIDES else ''
+            urls.append(f'<url><loc>{canonical(page_path(lang,key))}</loc>{lastmod}{alternates}</url>')
     write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+''.join(urls)+'</urlset>\n')
     llms = [f'# Miblo CLI\n\n> Free, MIT-licensed Rust API scaffolding tool with an interactive terminal UI. Current CLI: {VERSION}; template packs: 0.6.0.\n',
             'Generates editable Axum and SQLx projects, CRUD routes, SQL models, foreign keys and migrations for SQLite or MySQL. The terminal UI also tests requests and displays API/database status. English is the default; Shift+L selects English or French.\n',
