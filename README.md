@@ -103,7 +103,7 @@ modifier `BASE` dans `scripts/build.py`, le contrôle dans `scripts/check.py`,
 
 Dans hPanel, sélectionner **cli.miblo.fr** et ouvrir son gestionnaire de fichiers.
 Sauvegarder `public_html` hors du dossier public avant une mise à jour, puis
-y publier `index.html`, les fichiers CSS et JavaScript, `favicon.svg`,
+y publier `index.html`, les fichiers CSS et JavaScript, `favicon.png`, `favicon.ico` (et `favicon.svg` pour les anciennes URL),
 `search-index.json`, `robots.txt`, `sitemap.xml`, ainsi que `docs/`, `en/`, `fr/`, `assets/` et `.htaccess`.
 Vider le cache du site dans hPanel et vérifier l’accueil, la démo et la recherche.
 Les archives de sauvegarde, `.git/`, `content/` et `scripts/` restent hors du
