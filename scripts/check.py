@@ -25,7 +25,7 @@ class Document(HTMLParser):
             self.ids.add(a['id'])
         self.h1 += tag == 'h1'
         self.description |= tag == 'meta' and a.get('name') == 'description' and bool(a.get('content'))
-        self.canonical |= tag == 'link' and a.get('rel') == 'canonical' and a.get('href', '').startswith('https://miblo.fr/')
+        self.canonical |= tag == 'link' and a.get('rel') == 'canonical' and a.get('href', '').startswith('https://cli.miblo.fr/')
         self.lang |= tag == 'html' and a.get('lang') == 'fr'
         if tag in ('a', 'link') and a.get('href'): self.links.append(a['href'])
         if tag in ('script', 'img') and a.get('src'): self.links.append(a['src'])

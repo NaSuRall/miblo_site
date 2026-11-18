@@ -92,13 +92,18 @@ la compilation hors ligne ; le téléchargement des templates nécessite le rés
 
 ## Distribution et publication
 
-Le domaine canonique existant est `https://miblo.fr`. Les liens locaux sont
+Le site est hébergé sur Hostinger à `https://cli.miblo.fr`. Les liens locaux sont
 relatifs et fonctionnent aussi dans un sous-dossier. Pour changer de domaine,
-modifier `BASE` dans `scripts/build.py`, `robots.txt`, puis régénérer.
+modifier `BASE` dans `scripts/build.py`, le contrôle dans `scripts/check.py`,
+`robots.txt`, puis régénérer.
 
-Publier les fichiers statiques et le dossier `docs/` sur l’hébergement existant.
-Le dossier `content/` et les scripts ne sont pas requis pour servir les pages.
-Ce dépôt ne déploie ni ne publie de crate automatiquement.
+Dans hPanel, sélectionner **cli.miblo.fr** et ouvrir son gestionnaire de fichiers.
+Sauvegarder `public_html` hors du dossier public avant une mise à jour, puis
+y publier `index.html`, les fichiers CSS et JavaScript, `favicon.svg`,
+`search-index.json`, `robots.txt`, `sitemap.xml`, ainsi que `docs/` et `assets/`.
+Vider le cache du site dans hPanel et vérifier l’accueil, la démo et la recherche.
+Les archives de sauvegarde, `.git/`, `content/` et `scripts/` restent hors du
+dossier public. Le dépôt ne déploie ni ne publie de crate automatiquement.
 
 Au 17 novembre 2026, l’API crates.io ne contient pas `miblo_cli_v2` et la recherche
 Miblo ne renvoie aucun paquet. Le site indique donc l’installation GitHub et

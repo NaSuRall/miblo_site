@@ -12,7 +12,7 @@ STYLE_VERSION = hashlib.sha256((ROOT / 'style.css').read_bytes()).hexdigest()[:1
 sys.path.insert(0, str(ROOT))
 from content.pages import PAGES
 
-BASE = 'https://miblo.fr'
+BASE = 'https://cli.miblo.fr'
 GITHUB = 'https://github.com/NaSuRall/Miblo'
 CRATES = 'https://crates.io/search?q=miblo'
 DEMO_GUIDES = {

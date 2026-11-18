@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://miblo.fr/sitemap.xml
+Sitemap: https://cli.miblo.fr/sitemap.xml
