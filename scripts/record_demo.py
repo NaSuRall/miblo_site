@@ -121,14 +121,18 @@ with tempfile.TemporaryDirectory(prefix='miblo-demo-', dir='/private/tmp') as di
     with socket.socket() as sock:
         sock.bind(('127.0.0.1', 0))
         port = sock.getsockname()[1]
-    env = dict(os.environ, TERM='xterm-256color', CARGO_TARGET_DIR=str(args.target_dir.resolve()), CARGO_NET_OFFLINE='true')
-    for name in ['DATABASE_URL', 'SERVER_PORT', 'SERVER_ADDRESS', 'MIBLO_TEMPLATE_DIR', 'MIBLO_TEMPLATE_BASE_URL', 'NO_COLOR']:
+    env = dict(os.environ, TERM='xterm-256color', CARGO_TARGET_DIR=str(args.target_dir.resolve()), CARGO_NET_OFFLINE='true', MIBLO_CONFIG_DIR=str(root / 'preferences'))
+    for name in ['DATABASE_URL', 'SERVER_PORT', 'SERVER_ADDRESS', 'MIBLO_TEMPLATE_DIR', 'MIBLO_TEMPLATE_BASE_URL', 'MIBLO_LANGUAGE', 'MIBLO_NO_ANIMATION', 'NO_COLOR']:
         env.pop(name, None)
     ui = Terminal(root, env)
     try:
-        ui.chapter('Projet')
-        ui.wait('Atelier API')
+        ui.chapter('Langue')
+        ui.wait('API workspace')
         ui.capture('Miblo au lancement', seconds=2.2)
+        ui.go('L', 'Applies immediately', 'Choisir English ou Français', 'Maj+L', 3)
+        ui.go(DOWN + ENTER, 'Langue enregistrée : français', 'Passer en français, choix mémorisé', '↓ Entrée', 3)
+        assert json.loads((root / 'preferences/settings.json').read_text())['language'] == 'fr'
+        ui.chapter('Projet')
         ui.go('n', 'Nom de la nouvelle API', 'Créer une API', 'n')
         ui.go(CLEAR + 'team-api' + ENTER, 'Dossier à créer', 'Choisir le dossier', 'Entrée')
         ui.go(ENTER, 'Port du serveur', 'Configurer le port', 'Entrée')
@@ -247,7 +251,8 @@ with tempfile.TemporaryDirectory(prefix='miblo-demo-', dir='/private/tmp') as di
                        columns=WIDTH, lines=HEIGHT, styles=styles, chapters=chapters, frames=frames,
                        verification={'source':'real-pty', 'database':'sqlite', 'templateUrl':state['template']['url'],
                                      'postStatus':201, 'readAfterMigrationStatus':200,
-                                     'rowPreserved':True, 'foreignKeyVerified':True})
+                                     'rowPreserved':True, 'foreignKeyVerified':True,
+                                     'defaultLanguage':'en', 'savedLanguage':'fr', 'languageSwitchVerified':True})
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(payload, ensure_ascii=False, separators=(',', ':')) + '\n')
         print(f'Saved {len(frames)} real screens to {args.output}', flush=True)

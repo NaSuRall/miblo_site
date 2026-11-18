@@ -9,8 +9,8 @@
       <p>Choisissez vos modèles et vos routes. Miblo génère le code et les migrations pour <strong>SQLite ou MySQL</strong>. Vous complétez ensuite la logique métier dans votre éditeur.</p>
     </div>
   </section>
-  <section class="demo-shell recorded-demo" id="demo" aria-label="Démonstration enregistrée dans Miblo">
-    <div class="terminal-title"><span><span class="terminal-prompt">&gt;_</span> miblo <span class="muted">— enregistrement de l’application</span></span><span class="record-version">0.9.0</span></div>
+  <section class="demo-shell recorded-demo" id="demo" data-recording="{{RECORDING}}" data-demo-labels="{{DEMO_LABELS}}" aria-label="Démonstration enregistrée dans Miblo">
+    <div class="terminal-title"><span><span class="terminal-prompt">&gt;_</span> miblo <span class="muted">— enregistrement de l’application</span></span><span class="record-version">{{DEMO_VERSION}}</span></div>
     <div id="demo-chapters" class="record-chapters" role="group" aria-label="Chapitres de la démo" hidden></div>
     <div class="record-viewport" id="demo-viewport" tabindex="0" role="region" aria-label="Écran enregistré de Miblo, défilement horizontal sur petit écran">
       <pre id="demo-terminal" class="terminal-recording"><!-- DEMO_POSTER --></pre>
@@ -27,14 +27,15 @@
       </div>
       <input id="demo-progress" type="range" min="0" value="0" step="1" aria-label="Position dans la démonstration">
     </div>
-    <p class="record-note">Vraie session Miblo · API et base SQLite locales · attentes raccourcies</p>
+    <p class="record-note">Vraie session Miblo · passage anglais → français · API SQLite locale · attentes raccourcies</p>
     <noscript><p class="record-note">Activez JavaScript pour lire l’enregistrement. <a href="docs/premiere-api.html">Consulter le guide →</a></p></noscript>
   </section>
   <section class="compact-install" aria-labelledby="install-title">
     <div class="install-heading"><h2 id="install-title">Installation</h2><a href="docs/installation.html">Prérequis et guide →</a></div>
     <div class="code-block"><div class="code-header"><span>terminal</span><button data-copy aria-label="Copier les commandes d’installation" hidden>Copier</button></div><pre><code>rustup component add rustfmt
-cargo install miblo --locked
+cargo install miblo --version {{VERSION}} --locked
 miblo</code></pre></div>
-    <p class="distribution-note">Bêta 0.9.0 · <a href="https://crates.io/crates/miblo">crates.io</a> · <a href="docs/installation.html#distribution">Télécharger pour Windows, macOS ou Linux →</a></p>
+    <p class="distribution-note">Anglais par défaut. <kbd>Maj+L</kbd> pour choisir français ou anglais ; votre choix est mémorisé. <a href="docs/interface.html#langue">Choisir la langue →</a></p>
+    <p class="distribution-note"><a href="{{RELEASE}}">Bêta {{VERSION}}</a> · <a href="https://crates.io/crates/miblo">crates.io</a> · <a href="docs/installation.html#distribution">Télécharger pour Windows, macOS ou Linux →</a></p>
   </section>
 </main>

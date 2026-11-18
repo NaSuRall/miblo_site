@@ -1,6 +1,6 @@
 # Le site de Miblo
 
-Présentation et documentation bilingues de Miblo 0.9, avec un style terminal
+Présentation et documentation bilingues de Miblo 0.9.1, avec un style terminal
 ASCII, un enregistrement de l’application et 16 guides dans chaque langue.
 L’anglais est la version par défaut ; le français reste accessible partout.
 
@@ -68,12 +68,13 @@ le navigateur lit un enregistrement et ne lance aucune API.
 
 ## Réenregistrer la démonstration
 
-La démo provient du binaire Miblo 0.9.0, exécuté dans un PTY de 120 × 36.
+La démo provient du binaire Miblo 0.9.1, exécuté dans un PTY de 120 × 36.
 Les textes, couleurs et panneaux viennent de sa sortie terminal. Les touches
 sont envoyées à Miblo ; aucun menu ni résultat HTTP n’est reconstitué dans le
 site. Les pauses entre écrans sont raccourcies, les étapes sont chapitrées.
 
-Le scénario télécharge les templates GitHub Releases, crée Group et User,
+Le scénario démarre en anglais, choisit Français avec Maj+L et vérifie la
+mémorisation, puis télécharge les templates GitHub Releases, crée Group et User,
 ajoute la relation, consulte le schéma, crée POST /members, lance la vraie API,
 envoie un POST et fait évoluer User. Il vérifie la clé étrangère dans SQLite,
 le statut HTTP 201, la conservation de la ligne et sa lecture après migration.
@@ -110,10 +111,12 @@ dossier public. Le dépôt ne déploie ni ne publie de crate automatiquement.
 
 La bêta publique est distribuée sous le nom **miblo** sur crates.io, avec des
 binaires Windows x64, Linux x64 et macOS Apple Silicon/Intel sur GitHub Releases.
-La commande affichée est `cargo install miblo --locked`. Les liens des archives
+La commande affichée est `cargo install miblo --version 0.9.1 --locked`. Les liens des archives
 et leurs sommes SHA-256 sont centralisés dans `content/downloads.py`.
-Lors d’une release, mettre à jour la version, les deux accueils et les métadonnées,
-puis vérifier les téléchargements avant de déployer.
+La version partagée dans `content/downloads.py` alimente les liens, les commandes
+d’installation, les deux accueils et les métadonnées. Lors d’une release, mettre
+à jour cette version, les guides concernés et l’enregistrement réel, puis vérifier
+les téléchargements avant de déployer.
 
 La documentation est fondée sur le code et le README du dépôt `Miblo`, ainsi que
 sur les templates 0.6.0. Conserver les versions et les limites cohérentes lors
@@ -138,9 +141,11 @@ des prochaines évolutions.
   désactive le listing et limite le cache HTML/JSON à cinq minutes. Le serveur
   Python de développement ne lit pas ce fichier ; le vérifier sur Hostinger.
 
-La recherche utilise 90 entrées par langue. Les légendes et commandes du lecteur
+La recherche utilise 93 entrées par langue. Les légendes et commandes du lecteur
 sont traduites ; les cellules de l’enregistrement restent la sortie réelle de
-l’application, actuellement en français.
+l’application : démarrage en anglais, puis passage en français depuis son menu.
+Les URL des données et légendes portent leur empreinte pour éviter un mélange
+entre une ancienne démo en cache et ses nouveaux styles.
 
 Créer une archive à publier après les contrôles :
 

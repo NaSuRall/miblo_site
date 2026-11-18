@@ -1,6 +1,6 @@
 """Versioned native downloads shared by both installation guides."""
 
-VERSION = '0.9.0'
+VERSION = '0.9.1'
 RELEASE = f'https://github.com/NaSuRall/Miblo/releases/tag/v{VERSION}'
 ASSETS = f'https://github.com/NaSuRall/Miblo/releases/download/v{VERSION}'
 PLATFORMS = [

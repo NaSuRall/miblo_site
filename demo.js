@@ -2,9 +2,9 @@
   'use strict';
   const demo = document.getElementById('demo');
   if (!demo) return;
-  const url = new URL('assets/miblo-demo.json', document.currentScript.src);
+  const url = new URL(demo.dataset.recording, document.baseURI);
   const en = document.documentElement.lang === 'en';
-  const translations = en ? fetch(new URL('assets/demo-en.json', document.currentScript.src)).then(response => {
+  const translations = en ? fetch(new URL(demo.dataset.demoLabels, document.baseURI)).then(response => {
     if (!response.ok) throw new Error('translations unavailable');
     return response.json();
   }) : Promise.resolve({});

@@ -74,5 +74,9 @@
   "s": "s",
   "m": "m",
   "b": "b",
-  "Tab · Entrée": "Tab · Enter"
+  "Tab · Entrée": "Tab · Enter",
+  "Langue": "Language",
+  "Choisir English ou Français": "Choose English or French",
+  "Passer en français, choix mémorisé": "Switch to French and save the preference",
+  "Maj+L": "Shift+L"
 }

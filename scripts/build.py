@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 from content.pages import PAGES as FR
 from content.pages_en import PAGES as EN
 from content.locales import SLUGS, TEXT
+from content.downloads import VERSION, RELEASE
 
 BASE = 'https://cli.miblo.fr'
 GITHUB = 'https://github.com/NaSuRall/Miblo'
@@ -20,7 +21,7 @@ CRATES = 'https://crates.io/crates/miblo'
 # Public ownership proof for the site's existing owner's Search Console account.
 GOOGLE_VERIFICATION = 'iTdcU0Bbpn9YEbI9BMKEY61hM8QU_BVbs59WiKIqeJw'
 PAGES = {'en': EN, 'fr': FR}
-DEMO_GUIDES = {'premiere-api':'projet','interface':'post','modeles':'modeles','relations':'relation','migrations':'migration','routes':'route','tester-les-routes':'post','bases-de-donnees':'schema','architecture':'code','templates':'projet'}
+DEMO_GUIDES = {'premiere-api':'projet','interface':'langue','modeles':'modeles','relations':'relation','migrations':'migration','routes':'route','tester-les-routes':'post','bases-de-donnees':'schema','architecture':'code','templates':'projet'}
 
 
 def page_path(lang, key=None):
@@ -80,7 +81,7 @@ def header(lang, current, key):
 
 def footer(lang, current):
     t = TEXT[lang]
-    return f'''<footer class="site-footer"><div class="footer-main"><a class="brand" href="{relative(current,page_path(lang))}" aria-label="{t['back_home']}"><img class="brand-logo" src="{relative(current,'assets/miblo-logo.svg')}" width="350" height="102" alt=""></a><div class="footer-links"><a href="{relative(current,page_path(lang,'index'))}">Documentation</a><a href="{GITHUB}">GitHub ↗</a><a href="{CRATES}">crates.io ↗</a><a href="https://github.com/NaSuRall/miblo_templates/releases">Templates ↗</a></div></div><div class="footer-bottom"><span>Open source · MIT · {t['credit']}</span><span>Rust / Axum / SQLx</span></div></footer>'''
+    return f'''<footer class="site-footer"><div class="footer-main"><a class="brand" href="{relative(current,page_path(lang))}" aria-label="{t['back_home']}"><img class="brand-logo" src="{relative(current,'assets/miblo-logo.svg')}" width="350" height="102" alt=""></a><div class="footer-links"><a href="{relative(current,page_path(lang,'index'))}">Documentation</a><a href="{GITHUB}">GitHub ↗</a><a href="{CRATES}">crates.io ↗</a><a href="{RELEASE}">{"Téléchargements" if lang == "fr" else "Downloads"} ↗</a><a href="https://github.com/NaSuRall/miblo_templates/releases">Templates ↗</a></div></div><div class="footer-bottom"><span>Open source · MIT · {t['credit']}</span><span>Rust / Axum / SQLx</span></div></footer>'''
 
 
 def search_dialog(lang):
@@ -91,7 +92,7 @@ def search_dialog(lang):
 def structured_data(lang, path, key, title, description):
     url = canonical(path)
     website = {'@type':'WebSite','@id':BASE+'/#website','url':BASE+'/','name':'Miblo','inLanguage':['en','fr']}
-    software = {'@type':'SoftwareApplication','@id':BASE+'/#software','name':'Miblo','url':BASE+'/','applicationCategory':'DeveloperApplication','operatingSystem':'Windows, macOS, Linux','softwareVersion':'0.9.0','description':TEXT[lang]['home_description'],'isAccessibleForFree':True,'license':'https://opensource.org/license/mit','sameAs':GITHUB,'softwareHelp':canonical(page_path(lang,'index')),'softwareRequirements':'Rust 1.88+, Cargo, rustfmt and native build tools','author':{'@type':'Person','name':'NaSuRall','url':'https://github.com/NaSuRall'}}
+    software = {'@type':'SoftwareApplication','@id':BASE+'/#software','name':'Miblo','url':BASE+'/','applicationCategory':'DeveloperApplication','operatingSystem':'Windows, macOS, Linux','softwareVersion':VERSION,'inLanguage':['en','fr'],'downloadUrl':RELEASE,'releaseNotes':RELEASE,'description':TEXT[lang]['home_description'],'isAccessibleForFree':True,'license':'https://opensource.org/license/mit','sameAs':GITHUB,'softwareHelp':canonical(page_path(lang,'index')),'softwareRequirements':'Rust 1.88+, Cargo, rustfmt and native build tools','author':{'@type':'Person','name':'NaSuRall','url':'https://github.com/NaSuRall'}}
     page = {'@type':'WebPage' if key is None else 'TechArticle','@id':url+'#page','url':url,'name':title,'headline':title,'description':description,'inLanguage':lang,'isPartOf':{'@id':BASE+'/#website'},'about':{'@id':BASE+'/#software'}}
     graph = [website, software, page]
     if key is not None:
@@ -163,7 +164,7 @@ def main():
     for lang, pages in PAGES.items():
         t = TEXT[lang]
         home_path = page_path(lang)
-        home = (ROOT / ('content/home_en.html' if lang == 'en' else 'content/home.html')).read_text().replace('<!-- DEMO_POSTER -->',poster)
+        home = (ROOT / ('content/home_en.html' if lang == 'en' else 'content/home.html')).read_text().replace('<!-- DEMO_POSTER -->',poster).replace('{{VERSION}}', VERSION).replace('{{RELEASE}}', RELEASE).replace('{{DEMO_VERSION}}', json.loads((ROOT/'assets/miblo-demo.json').read_text())['cliVersion']).replace('{{RECORDING}}', asset(home_path,'assets/miblo-demo.json')).replace('{{DEMO_LABELS}}', asset(home_path,'assets/demo-en.json'))
         write(home_path,page(lang,t['home_title'],t['home_description'],localized_links(home,lang,home_path,True),home_path))
         paths.append(home_path)
         search = []
@@ -176,7 +177,7 @@ def main():
             nxt = f'<a href="{relative(path,page_path(lang,pages[i+1]["slug"]))}"><span>{t["next"]}</span>{pages[i+1]["title"]}</a>' if i+1<len(pages) else f'<a href="{relative(path,home_path)}"><span>{t["back"]}</span>{t["view_demo"]}</a>'
             demo = f'<a class="doc-demo-link" href="{relative(path,home_path)}?demo={DEMO_GUIDES[key]}#demo">▶ {t["view_demo"]} <span aria-hidden="true">→</span></a>' if key in DEMO_GUIDES else ''
             breadcrumb = SLUGS[key] if lang == 'en' else key
-            body = f'''<div class="docs-layout">{sidebar(lang,key)}<main class="doc-content" id="contenu"><div class="breadcrumb"><a href="{relative(path,home_path)}">~/miblo</a>/<a href="{relative(path,page_path(lang,'index'))}">docs</a>/<span>{breadcrumb}</span></div><div class="doc-heading"><h1>{html.escape(item['title'])}</h1><p class="lead">{html.escape(item['intro'])}</p>{demo}</div>{sections}<nav class="doc-pagination" aria-label="{t['pagination']}">{prev}{nxt}</nav><p class="doc-feedback"><a href="{GITHUB}/issues">{t['report']} ↗</a></p></main><aside class="docs-toc"><p>{t['on_page']}</p><nav aria-label="{t['toc']}"><ul>{toc}</ul></nav><div class="doc-version"><span class="status-dot"></span> Documentation 0.9.0<br><span>Templates 0.6.0</span></div></aside></div>'''
+            body = f'''<div class="docs-layout">{sidebar(lang,key)}<main class="doc-content" id="contenu"><div class="breadcrumb"><a href="{relative(path,home_path)}">~/miblo</a>/<a href="{relative(path,page_path(lang,'index'))}">docs</a>/<span>{breadcrumb}</span></div><div class="doc-heading"><h1>{html.escape(item['title'])}</h1><p class="lead">{html.escape(item['intro'])}</p>{demo}</div>{sections}<nav class="doc-pagination" aria-label="{t['pagination']}">{prev}{nxt}</nav><p class="doc-feedback"><a href="{GITHUB}/issues">{t['report']} ↗</a></p></main><aside class="docs-toc"><p>{t['on_page']}</p><nav aria-label="{t['toc']}"><ul>{toc}</ul></nav><div class="doc-version"><span class="status-dot"></span> Documentation {VERSION}<br><span>Templates 0.6.0</span></div></aside></div>'''
             write(path,page(lang,f'{item["title"]} — {"Miblo documentation" if lang == "en" else "Documentation Miblo"}',item['intro'],body,path,key))
             paths.append(path)
             search.append(dict(title=item['title'],section=t['overview'],url=path,text=item['intro'],overview=True))
