@@ -1,0 +1,21 @@
+name: Static site checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Rebuild the static pages
+        run: python3 scripts/build.py
+      - name: Check links, anchors and search index
+        run: python3 scripts/check.py
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check demo.js
+      - name: Ensure generated files are up to date
+        run: git diff --exit-code -- index.html docs assets/miblo-demo.css search-index.json sitemap.xml

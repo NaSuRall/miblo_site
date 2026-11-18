@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 102" role="img" aria-labelledby="title">
+  <title id="title">Miblo</title>
+  <!-- Same character grid and blue as Miblo's terminal splash. -->
+  <g fill="#4696ff">
+    <rect x="0" y="0" width="10" height="18"/>
+    <rect x="60" y="0" width="10" height="18"/>
+    <rect x="90" y="0" width="50" height="18"/>
+    <rect x="160" y="0" width="40" height="18"/>
+    <rect x="230" y="0" width="10" height="18"/>
+    <rect x="310" y="0" width="30" height="18"/>
+    <rect x="0" y="21" width="20" height="18"/>
+    <rect x="50" y="21" width="20" height="18"/>
+    <rect x="110" y="21" width="10" height="18"/>
+    <rect x="160" y="21" width="10" height="18"/>
+    <rect x="200" y="21" width="10" height="18"/>
+    <rect x="230" y="21" width="10" height="18"/>
+    <rect x="300" y="21" width="10" height="18"/>
+    <rect x="340" y="21" width="10" height="18"/>
+    <rect x="0" y="42" width="10" height="18"/>
+    <rect x="20" y="42" width="10" height="18"/>
+    <rect x="40" y="42" width="10" height="18"/>
+    <rect x="60" y="42" width="10" height="18"/>
+    <rect x="110" y="42" width="10" height="18"/>
+    <rect x="160" y="42" width="40" height="18"/>
+    <rect x="230" y="42" width="10" height="18"/>
+    <rect x="300" y="42" width="10" height="18"/>
+    <rect x="340" y="42" width="10" height="18"/>
+    <rect x="0" y="63" width="10" height="18"/>
+    <rect x="30" y="63" width="10" height="18"/>
+    <rect x="60" y="63" width="10" height="18"/>
+    <rect x="110" y="63" width="10" height="18"/>
+    <rect x="160" y="63" width="10" height="18"/>
+    <rect x="200" y="63" width="10" height="18"/>
+    <rect x="230" y="63" width="10" height="18"/>
+    <rect x="300" y="63" width="10" height="18"/>
+    <rect x="340" y="63" width="10" height="18"/>
+    <rect x="0" y="84" width="10" height="18"/>
+    <rect x="60" y="84" width="10" height="18"/>
+    <rect x="90" y="84" width="50" height="18"/>
+    <rect x="160" y="84" width="40" height="18"/>
+    <rect x="230" y="84" width="50" height="18"/>
+    <rect x="310" y="84" width="30" height="18"/>
+  </g>
+</svg>

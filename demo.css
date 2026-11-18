@@ -1,0 +1,79 @@
+/* The recording keeps the application's terminal cells, colors and layout. */
+.demo-first { max-width: 1160px; margin: 0 auto; padding: 36px 40px 48px; }
+.product-intro { display: grid; grid-template-columns: 1fr; gap: 28px; justify-items: center; text-align: center; padding: 16px 0 20px; margin-bottom: 28px; }
+.product-brand { width: 100%; max-width: 380px; }
+.product-logo { display: block; width: 100%; height: auto; }
+.product-tagline { margin: 22px 0 0; color: #8ca5c8; font-size: 16px; line-height: 1.5; }
+.product-description { width: 100%; max-width: 780px; }
+.product-description h1 { font-size: 26px; letter-spacing: -.045em; margin: 0 0 14px; line-height: 1.35; }
+.product-description > p { color: var(--muted); font-size: 14px; line-height: 1.85; margin: 0 auto; max-width: 72ch; }
+.product-description strong { color: var(--fg); font-weight: 500; }
+.demo-first .recorded-demo { width: 100%; max-width: none; scroll-margin-top: 100px; }
+.record-version { color: var(--muted); }
+.record-chapters { display: flex; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.record-chapters button { flex: 1; padding: 13px 12px; font-size: 12px; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; }
+.record-chapters button:hover { color: var(--fg); background: var(--raised); }
+.record-chapters button[aria-pressed="true"] { color: var(--blue); background: var(--blue-bg); border-bottom-color: var(--blue); }
+.record-viewport { padding: 16px; overflow: auto; background: #0f121d; scrollbar-color: #40516a #0f121d; }
+.terminal-recording { width: max-content; min-width: 120ch; margin: 0 auto; padding: 0; color: #e0e6f5; background: #0f121d; font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-ligatures: none; letter-spacing: 0; white-space: pre; overflow: visible; tab-size: 1; }
+.terminal-row { display: block; height: 1.2em; }
+.terminal-row > span { display: inline-block; height: 100%; vertical-align: top; }
+.record-caption { display: flex; justify-content: space-between; align-items: center; min-height: 45px; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--line); font-size: 12px; }
+.record-caption kbd { flex-shrink: 0; font-size: 10px; }
+.record-controls { padding: 10px 16px 12px; border-top: 1px solid var(--line); background: #141820; }
+.record-buttons { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.record-buttons button { font-size: 12px; padding: 7px 11px; min-height: 36px; border: 1px solid var(--line); }
+.record-buttons button:hover:not(:disabled) { color: var(--blue); border-color: var(--blue); }
+.record-buttons button:disabled { opacity: .4; }
+#demo-play { color: var(--blue); }
+#demo-time { margin-left: auto; font-size: 11px; color: var(--muted); white-space: nowrap; }
+#demo-progress { width: 100%; display: block; accent-color: var(--blue); cursor: pointer; }
+.record-note { padding: 9px 16px; margin: 0; border-top: 1px solid var(--line); font-size: 10px; color: var(--muted); }
+.record-note a { text-decoration: underline; }
+.record-modal { inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; color: var(--fg); background: #0f121d; }
+.record-modal::backdrop { background: #0f121d; }
+.record-modal .recorded-demo { display: flex; flex-direction: column; height: 100%; width: 100%; max-width: none; border: 0; box-shadow: none; background: #0f121d; }
+.record-modal .record-viewport { flex: 1; min-height: 0; display: grid; align-items: center; }
+.record-modal .terminal-recording { font-size: clamp(12px, min(1.1vw, 1.7dvh), 18px); }
+.compact-install { margin-top: 38px; }
+.install-heading { display: flex; align-items: baseline; gap: 15px; justify-content: space-between; }
+.install-heading h2 { font-size: 19px; letter-spacing: -.03em; }
+.install-heading a { font-size: 12px; color: var(--muted); }
+.compact-install .code-block { margin: 14px 0; }
+.compact-install pre { font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.distribution-note { font-size: 12px; color: var(--muted); }
+.distribution-note a { text-decoration: underline; }
+.demo-first + .site-footer { max-width: 1080px; }
+@media(max-width:900px) {
+  .demo-first { padding-inline: 28px; }
+  .product-description h1 { font-size: 24px; }
+  .product-description > p { font-size: 13px; }
+  .demo-first + .site-footer { margin-inline: 28px; }
+}
+@media(max-width:640px) {
+  .demo-first { padding: 24px 20px 30px; }
+  .product-intro { padding: 12px 0 6px; }
+  .product-brand { max-width: 310px; }
+  .product-tagline { font-size: 14px; margin-top: 20px; }
+  .product-description h1 { font-size: 23px; margin-bottom: 12px; }
+  .product-description > p { font-size: 13px; }
+  .recorded-demo { box-shadow: none; }
+  .record-viewport { padding: 8px; }
+  .recorded-demo .terminal-title { font-size: 9px; }
+  .record-chapters button { padding: 11px 13px; }
+  .record-caption { font-size: 11px; padding: 10px; }
+  .record-caption kbd { font-size: 9px; }
+  .record-controls { padding: 10px; }
+  .record-buttons { gap: 5px; flex-wrap: wrap; }
+  .record-buttons button { font-size: 11px; padding: 7px 9px; }
+  #demo-fullscreen { margin-left: auto; }
+  #demo-time { width: 100%; text-align: right; font-size: 10px; }
+  .record-note { font-size: 10px; padding: 10px; line-height: 1.7; }
+  .compact-install { margin-top: 30px; }
+  .install-heading { gap: 10px; }
+  .install-heading h2 { font-size: 18px; }
+  .install-heading a { font-size: 10px; }
+  .compact-install pre { font-size: 11px; }
+  .distribution-note { font-size: 10px; }
+  .demo-first + .site-footer { margin-inline: 20px; }
+}

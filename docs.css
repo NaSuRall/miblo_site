@@ -1,0 +1,63 @@
+/* Documentation: readable text, exact steps, optional shell examples. */
+.docs-layout { max-width: 1400px; grid-template-columns: 230px minmax(0,1fr) 190px; padding-inline: 24px; }
+.docs-sidebar { padding: 28px 18px 28px 4px; }
+.nav-group { font-size: 10px; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.docs-sidebar li a { font-size: 12px; padding: 7px 9px; }
+.doc-content { max-width: 860px; padding: 30px 38px 48px; }
+.breadcrumb { margin-bottom: 22px; font-size: 11px; }
+.doc-heading { padding-bottom: 24px; margin-bottom: 28px; }
+.doc-heading h1 { margin: 0 0 12px; font-size: 32px; letter-spacing: -.04em; }
+.doc-heading .lead { font-size: 14px; line-height: 1.75; }
+.doc-demo-link { display: flex; width: fit-content; max-width: 100%; align-items: center; gap: 14px; margin-top: 18px; padding: 10px 12px; border: 1px solid #334864; color: var(--blue); font-size: 12px; line-height: 1.6; }
+.doc-demo-link:hover { background: var(--blue-bg); border-color: var(--blue); }
+.doc-demo-link span { margin-left: auto; }
+.doc-section { margin-bottom: 34px; }
+.doc-section h2 { font-size: 21px; margin-bottom: 15px; letter-spacing: -.025em; }
+.doc-section p, .doc-section li { font-size: 14px; line-height: 1.85; }
+.doc-section p { margin-bottom: 14px; }
+.doc-section ol { padding-left: 24px; }
+.doc-section ol > li { padding-left: 5px; margin-bottom: 12px; }
+.doc-section li::marker { color: var(--blue); }
+.doc-section kbd { font-size: 11px; white-space: nowrap; }
+.doc-section code { font-size: 12px; }
+.doc-content .code-block pre { font-size: 12px; line-height: 1.85; }
+.doc-content .table-wrap { margin: 16px 0 20px; }
+.doc-content .table-wrap table { font-size: 12px; line-height: 1.75; }
+.doc-content .table-wrap td code { font-size: 11px!important; }
+.doc-content .table-wrap td { min-width: 105px; }
+.doc-details { margin: 18px 0; padding: 0 14px; border: 1px dashed var(--line); }
+.doc-details summary { padding: 12px 0; color: var(--blue); font-size: 12px; cursor: pointer; }
+.doc-details[open] summary { margin-bottom: 10px; border-bottom: 1px dashed var(--line); }
+.doc-details .code-block { margin: 12px 0 16px; }
+.doc-details > p { font-size: 13px; }
+.doc-pagination { margin-top: 36px; }
+.doc-feedback { margin-top: 22px; }
+.doc-entry-list a { padding-block: 15px; }
+.docs-toc { top: 110px; padding-left: 14px; font-size: 11px; }
+@media(max-width:1150px) {
+  .docs-layout { grid-template-columns: 220px minmax(0,1fr); }
+  .docs-toc { display: none; }
+  .doc-content { padding-inline: 30px; }
+}
+@media(max-width:900px) {
+  .docs-layout { grid-template-columns: 195px minmax(0,1fr); padding-inline: 16px; }
+  .docs-sidebar { padding-right: 12px; }
+  .docs-sidebar li a { font-size: 11px; }
+  .doc-content { padding-inline: 24px; }
+  .doc-heading h1 { font-size: 29px; }
+}
+@media(max-width:640px) {
+  .docs-layout { display: block; padding: 0; }
+  .docs-sidebar { padding: 0; }
+  .doc-content { padding: 24px 20px 36px; }
+  .breadcrumb { font-size: 10px; margin-bottom: 18px; }
+  .doc-heading h1 { font-size: 28px; }
+  .doc-heading .lead { font-size: 13px; }
+  .doc-demo-link { font-size: 11px; }
+  .doc-section p, .doc-section li { font-size: 13px; }
+  .doc-section h2 { font-size: 20px; }
+  .doc-content .code-block pre { font-size: 11px; }
+  .doc-content .table-wrap table { font-size: 11px; }
+  .doc-details { padding-inline: 10px; }
+  .docs-menu nav ul { grid-template-columns: 1fr; }
+}
